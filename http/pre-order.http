@@ -1,0 +1,28 @@
+POST http://localhost:8080/api/orders/pre
+Content-Type: application/json
+
+{
+    "customer": {
+        "token": "token",
+        "customerEmail": "email@example.com",
+        "customerName": "John Doe",
+        "customerPostalCode": "12345",
+        "customerAddressDetail": "123 Street, City"
+    },
+    "orderItems": [
+        {
+            "productItemId": 1,
+            "productName": "Running Shoes",
+            "productPrice": 99.99,
+            "quantity": 1,
+            "price": 99.99
+        },
+        {
+            "productItemId": 2,
+            "productName": "Sneakers",
+            "productPrice": 79.99,
+            "quantity": 2,
+            "price": 159.98
+        }
+    ]
+}

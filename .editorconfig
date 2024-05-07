@@ -1,0 +1,35 @@
+root = true
+
+[*]
+# Default to Unix-style line endings
+end_of_line = lf
+
+# Ensure all files end with a newline
+insert_final_newline = true
+
+# Remove trailing whitespaces
+trim_trailing_whitespace = true
+
+# Set indentation style to space and size to 4
+indent_style = space
+indent_size = 4
+
+[{**/*.kt, **/*.kts}]
+# Maximum line length for Kotlin files
+max_line_length = 100
+
+# IntelliJ IDEA code style as the base
+ktlint_code_style = intellij_idea
+
+# Allow trailing commas in function parameters, collections, etc.
+ij_kotlin_allow_trailing_comma = true
+
+# Allow trailing commas in function calls
+ij_kotlin_allow_trailing_comma_on_call_site = true
+
+# Avoid using star imports
+ij_kotlin_name_count_to_use_star_import = 2147483647
+ij_kotlin_name_count_to_use_star_import_for_members = 2147483647
+
+# List of packages to use star import on demand
+ij_kotlin_packages_to_use_import_on_demand = unset
