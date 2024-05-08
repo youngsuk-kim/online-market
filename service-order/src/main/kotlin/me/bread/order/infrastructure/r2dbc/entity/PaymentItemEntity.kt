@@ -7,10 +7,10 @@ import java.math.BigDecimal
 
 @Table("payment_item")
 class PaymentItemEntity(
-    @Id val id: Long? = null,
-    @Column val paymentId: Long,
-    @Column val productId: Long,
-    @Column val name: String,
-    @Column val price: BigDecimal,
-    @Column val quantity: Long,
+    @Id @Column("id") val id: Long? = null,
+    @Column("paymentId") val paymentId: Long,
+    @Column("productId") val productId: Long,
+    @Column("name") val name: String,
+    @Column("price") val price: BigDecimal,
+    @Column("quantity") val quantity: Long,
 )

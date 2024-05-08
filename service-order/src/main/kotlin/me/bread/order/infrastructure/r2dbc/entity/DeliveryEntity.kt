@@ -6,10 +6,10 @@ import org.springframework.data.relational.core.mapping.Table
 
 @Table("delivery")
 class DeliveryEntity(
-    @Id val id: Long? = null,
-    @Column val orderId: Long,
-    @Column val customerEmail: String,
-    @Column val customerName: String,
-    @Column val customerPostalCode: String,
-    @Column val customerDestination: String,
+    @Id @Column("id") val id: Long? = null,
+    @Column("orderId") val orderId: Long,
+    @Column("customerEmail") val customerEmail: String,
+    @Column("customerName") val customerName: String,
+    @Column("customerPostalCode") val customerPostalCode: String,
+    @Column("customerDestination") val customerDestination: String,
 )

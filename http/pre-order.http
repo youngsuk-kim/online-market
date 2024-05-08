@@ -1,14 +1,8 @@
-POST http://localhost:8080/api/orders/pre
+POST http://localhost:8081/api/orders/pre
 Content-Type: application/json
 
 {
-    "customer": {
-        "token": "token",
-        "customerEmail": "email@example.com",
-        "customerName": "John Doe",
-        "customerPostalCode": "12345",
-        "customerAddressDetail": "123 Street, City"
-    },
+    "token": "test-token",
     "orderItems": [
         {
             "productItemId": 1,

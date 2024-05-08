@@ -10,8 +10,8 @@ COPY build/libs/*.jar app.jar
 COPY /pinpoint pinpoint
 
 # Set environment variables for Pinpoint
-ENV PINPOINT_AGENT_ID=bread-order-agent
-ENV PINPOINT_APPLICATION_NAME=bread-order-service
+ENV PINPOINT_AGENT_ID=bread-customer-agent
+ENV PINPOINT_APPLICATION_NAME=bread-customer-service
 ENV SPRING_PROFILES_ACTIVE=local
 
 # Run the application with Pinpoint agent

@@ -4,8 +4,8 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 
-@Table("order")
+@Table("orders")
 class OrderEntity(
-    @Id val id: Long? = null,
-    @Column val status: String,
+    @Id @Column("id") val id: Long? = null,
+    @Column("status") val status: String,
 )

@@ -7,8 +7,18 @@ import java.math.BigDecimal
 
 @Table("order_item")
 class OrderItemEntity(
-    @Id val id: Long? = null,
-    @Column val productItemId: Long,
-    @Column val productPrice: BigDecimal,
-    @Column val quantity: Long,
-)
+    @Id @Column("id") val id: Long? = null,
+    @Column("productItemId") val productItemId: Long,
+    @Column("productName") val productName: String,
+    @Column("productPrice") val productPrice: BigDecimal,
+    @Column("quantity") val quantity: Long,
+) {
+    override fun toString(): String {
+        return "OrderItemEntity(" +
+            "id=$id, " +
+            "productItemId=$productItemId," +
+            " productName='$productName', " +
+            "productPrice=$productPrice, " +
+            "quantity=$quantity)"
+    }
+}

@@ -18,7 +18,7 @@ class H2Config : AbstractR2dbcConfiguration() {
     @Bean
     override fun connectionFactory(): ConnectionFactory {
         return ConnectionFactories.get(
-            "r2dbc:h2:mem:///order;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
+            "r2dbc:h2:mem://sa:@localhost/order;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
         )
     }
 

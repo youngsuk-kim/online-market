@@ -11,7 +11,7 @@ CREATE TABLE `delivery`
     PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `order`
+CREATE TABLE `orders`
 (
     `id`         BIGINT AUTO_INCREMENT,
     `status`     VARCHAR(255) NOT NULL,
@@ -25,6 +25,7 @@ CREATE TABLE `order_item`
     `id`            BIGINT AUTO_INCREMENT,
     `productItemId` BIGINT         NOT NULL,
     `productPrice`  DECIMAL(15, 2) NOT NULL,
+    `productName`   VARCHAR(255)   NOT NULL,
     `quantity`      BIGINT         NOT NULL,
     `created_at`    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `updated_at`    TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

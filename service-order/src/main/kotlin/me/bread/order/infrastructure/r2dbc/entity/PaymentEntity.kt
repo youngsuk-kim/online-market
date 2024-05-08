@@ -6,8 +6,8 @@ import org.springframework.data.relational.core.mapping.Table
 
 @Table("payments")
 class PaymentEntity(
-    @Id val id: Long? = null,
-    @Column val orderId: Long,
-    @Column val customerEmail: String,
-    @Column val customerName: String,
+    @Id @Column("id") val id: Long? = null,
+    @Column("orderId") val orderId: Long,
+    @Column("customerEmail") val customerEmail: String,
+    @Column("customerName") val customerName: String,
 )
