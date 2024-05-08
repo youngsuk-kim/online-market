@@ -1,20 +1,18 @@
 package me.bread.order.application.service
 
-import me.bread.order.application.external.DeliveryApi
+import me.bread.order.adapter.OrderR2dbcMapper
 import me.bread.order.domain.entity.Order
 import me.bread.order.domain.entity.OrderItem
+import me.bread.order.domain.repository.OrderRepository
 import org.springframework.stereotype.Component
 
 @Component
 class OrderService(
-    private val deliveryApi: DeliveryApi,
+    private val orderRepository: OrderRepository,
 ) {
 
-    fun preorder(orderItem: List<OrderItem>) {
-        Order.request(orderItem)
-    }
-
-    fun calculateTotalCharge() {
-        deliveryApi.fetchSurChargeArea()
+    suspend fun preorder(orderItem: List<OrderItem>) {
+        val order = Order.preorder(orderItem)
+        orderRepository.save(OrderR2dbcMapper.toEntity(order))
     }
 }

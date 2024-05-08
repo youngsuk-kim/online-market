@@ -1,14 +1,16 @@
-package me.bread.order.infrastructure.r2dbc
+package me.bread.order.infrastructure.r2dbc.entity
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import java.math.BigDecimal
 
-@Table("order_item")
-class OrderItemEntity(
+@Table("payment_item")
+class PaymentItemEntity(
     @Id val id: Long? = null,
-    @Column val productItemId: Long,
-    @Column val productPrice: BigDecimal,
+    @Column val paymentId: Long,
+    @Column val productId: Long,
+    @Column val name: String,
+    @Column val price: BigDecimal,
     @Column val quantity: Long,
 )

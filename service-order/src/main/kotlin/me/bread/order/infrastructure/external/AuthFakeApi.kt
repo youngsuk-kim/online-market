@@ -7,5 +7,5 @@ import org.springframework.stereotype.Component
 @Local
 @Component
 class AuthFakeApi : AuthApi {
-    override fun fetchCustomerIdBy(token: String): Long = 1
+    override suspend fun fetchCustomerIdBy(token: String): Long = 1
 }

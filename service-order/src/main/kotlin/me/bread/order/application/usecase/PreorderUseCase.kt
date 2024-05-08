@@ -12,15 +12,12 @@ class PreorderUseCase(
     private val orderService: OrderService,
     private val productService: ProductService,
 ) {
-    fun execute(token: String, orderItems: List<OrderItem>) {
+    suspend fun execute(token: String, orderItems: List<OrderItem>) {
         // 고객 여부 확인
         authService.getCustomerId(token)
 
         // 상품 재고 확인
         productService.verifyStock(orderItems)
-
-        // 총 비용 게산
-        orderService.calculateTotalCharge()
 
         // 주문 아이템 생성
         orderService.preorder(orderItems)

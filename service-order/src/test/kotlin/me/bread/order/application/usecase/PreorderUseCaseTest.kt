@@ -24,7 +24,7 @@ class PreorderUseCaseTest : FeatureSpec(
                 val orderItems = orderItems()
 
                 // When
-                val order = Order.request(orderItems)
+                val order = Order.preorder(orderItems)
 
                 // Then
                 order.totalQuantity() shouldBe 4
@@ -59,15 +59,15 @@ class PreorderUseCaseTest : FeatureSpec(
                 phoneNumber.number shouldBe "01030202322"
             }
 
-            scenario("관리자는 손님의 배송지가 도서 산간 지역인지 확인한다") {
+            scenario("관리자는 손님의 배송지가 도서 산간 지역인지에 따라 배송비가 달라진다") {
                 // Given
                 val postNum = "363"
 
                 // When
-                val isSurChargeArea = DeliveryService(DeliveryFakeApi()).isSurChargeArea(postNum)
+                val isSurChargeArea = DeliveryService(DeliveryFakeApi()).calculateSurcharge(postNum)
 
                 // Then
-                isSurChargeArea shouldBe true
+                isSurChargeArea shouldBe 3000
             }
 
             scenario("관리자는 주문 금액을 산출한다") {
@@ -75,7 +75,7 @@ class PreorderUseCaseTest : FeatureSpec(
                 val orderItems = orderItems()
 
                 // When
-                val charge = Order.request(orderItems).charge()
+                val charge = Order.preorder(orderItems).charge()
 
                 // Then
                 charge shouldBe BigDecimal(34_000)

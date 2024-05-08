@@ -21,7 +21,7 @@ class SecurityConfig : WebFluxConfigurer {
             .cors { it.configurationSource(corsConfigurationSource()) }
             .authorizeExchange { exchange ->
                 exchange.pathMatchers("/h2-console/**").permitAll()
-                    .anyExchange().authenticated()
+                    .anyExchange().permitAll()
             }
             .httpBasic { it.disable() }
             .formLogin { it.disable() }

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Component
 class AuthService(
     private val authApi: AuthApi,
 ) {
-    fun getCustomerId(token: String) = authApi.fetchCustomerIdBy(token)
+    suspend fun getCustomerId(token: String) = authApi.fetchCustomerIdBy(token)
 }
