@@ -30,6 +30,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.104.Final:osx-aarch_64")
 
     implementation("io.asyncer:r2dbc-mysql:1.1.0")
     runtimeOnly("com.mysql:mysql-connector-j")

@@ -10,7 +10,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource
 @Configuration
 class MySQLFlywayConfig {
     @Bean
-    fun flywayMysql(): Flyway {
+    fun flywayMysql(): Flyway? {
         val dataSource = DriverManagerDataSource().apply {
             setDriverClassName("com.mysql.cj.jdbc.Driver")
             url = "jdbc:mysql://localhost:3306/order"
@@ -18,8 +18,9 @@ class MySQLFlywayConfig {
             password = "secret1!"
         }
 
-        return Flyway.configure().dataSource(dataSource).load().apply {
-            migrate() // Execute migrations on app startup
-        }
+        val flyway = Flyway.configure().dataSource(dataSource).load()
+        flyway.migrate()
+
+        return flyway
     }
 }

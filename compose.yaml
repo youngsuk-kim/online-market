@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+
+#    # MySQL CORE
+#    mysql_core:
+#        image: mysql:8.0
+#        environment:
+#            MYSQL_ROOT_HOST: '%'
+#            MYSQL_ROOT_PASSWORD: secret
+#            MYSQL_DATABASE: orders
+#        ports:
+#            - "3306:3306"
+#        volumes:
+#            - mysql_core_data:/var/lib/mysql
+#        restart: always
+
+    # MySQL ORDER
+    mysql_order:
+        image: mysql:8.0
+        environment:
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_ROOT_PASSWORD: secret1!
+            MYSQL_DATABASE: order
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysql_order_data:/var/lib/mysql
+        restart: always
+#
+#    # Redis
+#    redis:
+#        image: redis:latest
+#        ports:
+#            - "6379:6379"
+#        restart: always
+#
+#    # Kafka
+#    zookeeper:
+#        image: zookeeper:latest
+#        ports:
+#            - "2181:2181"
+#
+#    kafka:
+#        image: confluentinc/cp-kafka:latest
+#        ports:
+#            - "9092:9092"
+#        environment:
+#            KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9092
+#            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+#            KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
+#            KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+#            KAFKA_CREATE_TOPICS: "my-topic:1:1"
+#            KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+#        depends_on:
+#            - zookeeper
+#
+#    # haproxy
+#    haproxy:
+#        image: haproxy:latest
+#        volumes:
+#            - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+#        ports:
+#            - "80:80"
+#        depends_on:
+#            - myapp1
+#            - myapp2
+#        networks:
+#            - proxy
+
+# Volume
+volumes:
+    mysql_core_data:
+    mysql_order_data:
+networks:
+    proxy:
+
+
+#
+#  prometheus:
+#    image: prom/prometheus
+#    ports:
+#      - "9090:9090"
+#    volumes:
+#      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+#    command: [ "--config.file=/etc/prometheus/prometheus.yml" ]
+#    networks:
+#      - monitoring
+#
+#  grafana:
+#    image: grafana/grafana
+#    ports:
+#      - "3001:3000"
+#    networks:
+#      - monitoring
