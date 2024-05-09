@@ -7,5 +7,6 @@ import org.springframework.data.relational.core.mapping.Table
 @Table("orders")
 class OrderEntity(
     @Id @Column("id") val id: Long? = null,
+    @Column("customerId") var customerId: Long,
     @Column("status") var status: String,
 )

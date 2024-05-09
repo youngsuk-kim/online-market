@@ -16,8 +16,8 @@ class OrderService(
 ) {
 
     @Transactional
-    suspend fun preorder(orderItem: List<OrderItem>): Long {
-        val order = Order.preorder(orderItems = orderItem)
+    suspend fun preorder(orderItem: List<OrderItem>, customerId: Long): Long {
+        val order = Order.preorder(orderItems = orderItem, customerId = customerId)
 
         val orderId = orderRepository.save(OrderMapper.toEntity(order))
 

@@ -7,22 +7,16 @@ import java.math.BigDecimal
 
 class Order(
     val id: Long? = null,
+    var customerId: Long,
     var orderItems: List<OrderItem>,
     var status: OrderStatus,
 ) {
 
     companion object {
-        fun preorder(orderItems: List<OrderItem>) = Order(
+        fun preorder(orderItems: List<OrderItem>, customerId: Long) = Order(
             orderItems = orderItems,
             status = PRE_ORDER,
-        )
-
-        private const val TEST_ORDER_ID: Long = 1
-
-        fun testPreorder(orderId: Long = TEST_ORDER_ID, orderItems: List<OrderItem>) = Order(
-            id = orderId,
-            orderItems = orderItems,
-            status = PRE_ORDER,
+            customerId = customerId,
         )
     }
 

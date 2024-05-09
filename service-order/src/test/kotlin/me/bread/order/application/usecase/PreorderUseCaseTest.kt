@@ -24,7 +24,7 @@ class PreorderUseCaseTest : FeatureSpec(
                 val orderItems = orderItems()
 
                 // When
-                val order = Order.preorder(orderItems = orderItems)
+                val order = Order.preorder(orderItems = orderItems, 1L)
 
                 // Then
                 order.totalQuantity() shouldBe 4
@@ -75,7 +75,7 @@ class PreorderUseCaseTest : FeatureSpec(
                 val orderItems = orderItems()
 
                 // When
-                val charge = Order.preorder(orderItems = orderItems).charge()
+                val charge = Order.preorder(orderItems = orderItems, 1L).charge()
 
                 // Then
                 charge shouldBe BigDecimal(34_000)
@@ -92,8 +92,8 @@ class PreorderUseCaseTest : FeatureSpec(
 
                 // Then
                 payment.orderId shouldBe 1L
-                payment.customerName shouldBe "김영석"
-                payment.customerEmail shouldBe "example@gmail.com"
+                payment.buyerName shouldBe "김영석"
+                payment.buyerEmail shouldBe "example@gmail.com"
             }
         }
     },

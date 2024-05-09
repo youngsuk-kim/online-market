@@ -24,7 +24,7 @@ class PaymentUseCaseTest : FeatureSpec(
 
             scenario("결제 정보를 주문 정보를 통해 검증한다") {
                 // Given
-                val order = Order.testPreorder(orderItems = orderItems())
+                val order = Order.preorder(orderItems = orderItems(), 1L)
                 val tossPayment = FakePaymentApi.execute(1L, "test-id", 10_000)
 
                 // When Then
@@ -38,7 +38,7 @@ class PaymentUseCaseTest : FeatureSpec(
 
             scenario("주문을 결제 완료로 변경한다") {
                 // Given
-                val order = Order.testPreorder(orderItems = orderItems())
+                val order = Order.preorder(orderItems = orderItems(), customerId = 1L)
 
                 // When
                 order.payed()

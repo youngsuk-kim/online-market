@@ -28,6 +28,7 @@ class OrderRepositoryAdapter(
                 id = this.id,
                 orderItems = orderItems,
                 status = OrderStatus.valueOf(this.status),
+                customerId = this.customerId,
             )
         }
     }

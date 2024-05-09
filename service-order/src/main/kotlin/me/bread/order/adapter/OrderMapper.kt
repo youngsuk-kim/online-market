@@ -8,6 +8,7 @@ object OrderMapper {
     fun toEntity(order: Order): OrderEntity {
         return OrderEntity(
             status = order.status.name,
+            customerId = order.customerId,
         )
     }
 }
