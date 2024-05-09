@@ -1,4 +1,4 @@
-package me.bread.order.infrastructure.r2dbc.config
+package me.bread.order.infrastructure.r2dbc.config.local
 
 import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory

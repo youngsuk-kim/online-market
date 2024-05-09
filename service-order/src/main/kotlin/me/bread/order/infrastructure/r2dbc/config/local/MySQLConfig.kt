@@ -1,4 +1,4 @@
-package me.bread.order.infrastructure.r2dbc.config
+package me.bread.order.infrastructure.r2dbc.config.local
 
 import io.asyncer.r2dbc.mysql.client.Client.logger
 import io.r2dbc.proxy.ProxyConnectionFactory

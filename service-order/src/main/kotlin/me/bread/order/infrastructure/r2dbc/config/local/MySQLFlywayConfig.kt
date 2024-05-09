@@ -1,4 +1,4 @@
-package me.bread.order.infrastructure.r2dbc.config
+package me.bread.order.infrastructure.r2dbc.config.local
 
 import me.bread.order.application.annotation.LocalDev
 import org.flywaydb.core.Flyway
