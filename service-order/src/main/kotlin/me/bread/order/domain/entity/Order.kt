@@ -1,6 +1,7 @@
 package me.bread.order.domain.entity
 
 import me.bread.order.domain.enums.OrderStatus
+import me.bread.order.domain.enums.OrderStatus.PAYED
 import me.bread.order.domain.enums.OrderStatus.PRE_ORDER
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -9,7 +10,7 @@ class Order(
     private val id: Long? = null,
     private val createdAt: LocalDateTime = LocalDateTime.now(),
     val orderItems: List<OrderItem>,
-    val status: OrderStatus,
+    var status: OrderStatus,
 ) {
 
     companion object {
@@ -42,5 +43,9 @@ class Order(
         require(orderId == id) { "Order id should be $id" }
         require(charge == charge()) { "Charge should be ${charge()}" }
         require(createdAt == requestAt) { "CreatedAt should be $requestAt" }
+    }
+
+    fun payed() {
+        this.status = PAYED
     }
 }

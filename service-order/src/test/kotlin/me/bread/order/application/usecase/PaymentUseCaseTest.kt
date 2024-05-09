@@ -3,6 +3,7 @@ package me.bread.order.application.usecase
 import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.matchers.shouldBe
 import me.bread.order.domain.entity.Order
+import me.bread.order.domain.enums.OrderStatus
 import me.bread.order.infrastructure.external.FakePaymentApi
 import me.bread.order.orderItems
 import org.junit.jupiter.api.assertDoesNotThrow
@@ -38,12 +39,15 @@ class PaymentUseCaseTest : FeatureSpec(
                 }
             }
 
-            scenario("주문을 완료로 변경한다") {
+            scenario("주문을 결제 완료로 변경한다") {
                 // Given
+                val order = Order.testPreorder(orderItems = orderItems())
 
                 // When
+                order.payed()
 
                 // Then
+                order.status shouldBe OrderStatus.PAYED
             }
         }
     },
