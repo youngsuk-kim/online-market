@@ -1,16 +1,3 @@
-CREATE TABLE `delivery`
-(
-    `id`                  BIGINT AUTO_INCREMENT,
-    `orderId`             BIGINT       NOT NULL,
-    `customerEmail`       VARCHAR(255) NOT NULL,
-    `customerName`        VARCHAR(255) NOT NULL,
-    `customerPostalCode`  VARCHAR(255) NOT NULL,
-    `customerDestination` VARCHAR(255) NOT NULL,
-    `created_at`          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `updated_at`          TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
-);
-
 CREATE TABLE `orders`
 (
     `id`         BIGINT AUTO_INCREMENT,
