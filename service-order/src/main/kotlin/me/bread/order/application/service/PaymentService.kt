@@ -11,10 +11,7 @@ class PaymentService(
 ) {
 
 //    @Transactional
-//    fun save(order: Order) {
-//        Payment(
-//            orderId = order.id!!,
-//            buyerName =
-//        )
+//    suspend fun save(order: Order) {
+//        paymentRepository.save(Payment(orderId = order.id!!, customerId = order.customerId))
 //    }
 }

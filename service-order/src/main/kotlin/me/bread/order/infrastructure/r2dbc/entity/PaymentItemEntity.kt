@@ -10,7 +10,7 @@ class PaymentItemEntity(
     @Id @Column("id") val id: Long? = null,
     @Column("paymentId") val paymentId: Long,
     @Column("productId") val productId: Long,
-    @Column("name") val name: String,
-    @Column("price") val price: BigDecimal,
+    @Column("productName") val productName: String,
+    @Column("productPrice") val productPrice: BigDecimal,
     @Column("quantity") val quantity: Long,
 )
