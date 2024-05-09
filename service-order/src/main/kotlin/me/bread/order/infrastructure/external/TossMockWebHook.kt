@@ -1,13 +1,14 @@
 package me.bread.order.infrastructure.external
 
-import me.bread.order.application.annotation.LocalDev
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.client.RestTemplate
 
-@LocalDev
-object MockPaymentApi {
+/**
+ * 간편 결제가 완료되면 success url, fail url 으로 요청을 통지하는 것을 모킹
+ */
+object TossMockWebHook {
     fun execute(orderId: String, amount: String, successUrl: String, paymentKey: String) {
         val headers = HttpHeaders().apply {
             contentType = MediaType.APPLICATION_JSON
