@@ -11,7 +11,7 @@ class ProductService(
     private val productApi: ProductApi,
 ) {
     fun verifyStock(orderItem: List<OrderItem>) {
-        val outOfStockItems = orderItem.filterNot { isProductQuantityEnough(it.productItemId) }
+        val outOfStockItems = orderItem.filterNot { isProductQuantityEnough(it.productId) }
         if (outOfStockItems.isNotEmpty()) {
             throw RestException(
                 ErrorType.INVALID_ARG_ERROR,

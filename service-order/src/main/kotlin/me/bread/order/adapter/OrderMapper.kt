@@ -7,6 +7,7 @@ object OrderMapper {
 
     fun toEntity(order: Order): OrderEntity {
         return OrderEntity(
+            id = order.id,
             status = order.status.name,
             customerId = order.customerId,
         )

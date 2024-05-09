@@ -7,7 +7,7 @@ object OrderItemMapper {
 
     fun toEntity(orderItem: OrderItem, orderId: Long): OrderItemEntity {
         return OrderItemEntity(
-            productItemId = orderItem.productItemId,
+            productId = orderItem.productId,
             productPrice = orderItem.productPrice,
             quantity = orderItem.quantity,
             productName = orderItem.productName,

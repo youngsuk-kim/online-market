@@ -20,7 +20,7 @@ class OrderItemRepositoryAdapter(
             ?.map {
                 OrderItem(
                     orderId = it.orderId,
-                    productItemId = it.productItemId,
+                    productId = it.productId,
                     productName = it.productName,
                     productPrice = it.productPrice,
                     quantity = it.quantity,

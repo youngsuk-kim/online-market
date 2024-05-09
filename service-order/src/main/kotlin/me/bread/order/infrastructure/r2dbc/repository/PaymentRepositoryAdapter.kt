@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 class PaymentRepositoryAdapter(
     private val paymentCoroutineRepository: PaymentCoroutineRepository,
 ) : PaymentRepository {
-    override suspend fun save(paymentEntity: PaymentEntity) {
-        paymentCoroutineRepository.save(paymentEntity)
+    override suspend fun save(paymentEntity: PaymentEntity): Long {
+        return paymentCoroutineRepository.save(paymentEntity).id!!
     }
 }

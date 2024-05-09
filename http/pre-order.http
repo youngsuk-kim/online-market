@@ -5,13 +5,13 @@ Content-Type: application/json
     "token": "test-token",
     "orderItems": [
         {
-            "productItemId": 1,
+            "productId": 1,
             "productName": "Running Shoes",
             "productPrice": 5000,
             "quantity": 1
         },
         {
-            "productItemId": 2,
+            "productId": 2,
             "productName": "Sneakers",
             "productPrice": 5000,
             "quantity": 1

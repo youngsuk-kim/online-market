@@ -12,9 +12,14 @@ import org.springframework.stereotype.Repository
 @Repository
 class OrderRepositoryAdapter(
     private val orderCoroutineRepository: OrderCoroutineRepository,
+    private val orderCustomRepository: OrderCustomRepository,
 ) : OrderRepository {
     override suspend fun save(orderEntity: OrderEntity): Long {
         return orderCoroutineRepository.save(orderEntity).id!!
+    }
+
+    override suspend fun updateToPaid(orderId: Long) {
+        orderCustomRepository.updateStatus(orderId, OrderStatus.PAYED)
     }
 
     override suspend fun findById(id: Long, orderItems: List<OrderItem>): Order {

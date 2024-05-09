@@ -38,6 +38,7 @@ dependencies {
     runtimeOnly("com.mysql:mysql-connector-j")
     implementation("io.r2dbc:r2dbc-h2:1.0.0.RELEASE")
     runtimeOnly("com.h2database:h2:2.1.214")
+    implementation("io.r2dbc:r2dbc-proxy:1.1.5.RELEASE")
 
     testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("io.rest-assured:rest-assured:5.4.0")

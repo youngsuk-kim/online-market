@@ -6,5 +6,6 @@ import me.bread.order.infrastructure.r2dbc.entity.OrderEntity
 
 interface OrderRepository {
     suspend fun save(orderEntity: OrderEntity): Long
+    suspend fun updateToPaid(orderId: Long)
     suspend fun findById(id: Long, orderItems: List<OrderItem>): Order
 }

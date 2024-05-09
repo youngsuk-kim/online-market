@@ -18,7 +18,9 @@ class MySQLFlywayConfig {
             password = "secret1!"
         }
 
-        val flyway = Flyway.configure().dataSource(dataSource).load()
+        val flyway = Flyway.configure().cleanDisabled(false).dataSource(dataSource).load()
+
+        flyway.clean()
         flyway.migrate()
 
         return flyway

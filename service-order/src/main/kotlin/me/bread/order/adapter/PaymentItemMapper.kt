@@ -9,8 +9,8 @@ object PaymentItemMapper {
         return PaymentItemEntity(
             paymentId = paymentId,
             productId = paymentItem.productId,
-            productName = paymentItem.name,
-            productPrice = paymentItem.price,
+            productName = paymentItem.productName,
+            productPrice = paymentItem.productPrice,
             quantity = paymentItem.quantity,
         )
     }

@@ -30,14 +30,14 @@ class OrderService(
 
     @Transactional
     suspend fun paid(orderId: Long) {
-        val order = findOrderBy(orderId)
-        orderRepository.save(OrderMapper.toEntity(order))
+        orderRepository.updateToPaid(orderId)
     }
 
     @Transactional(readOnly = true)
-    suspend fun validatePay(orderId: Long, amount: Long) {
+    suspend fun validatePay(orderId: Long, amount: Long): Order {
         val order = findOrderBy(orderId)
         order.validatePayment(orderId, amount)
+        return order
     }
 
     @Transactional(readOnly = true)

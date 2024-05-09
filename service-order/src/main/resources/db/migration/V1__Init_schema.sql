@@ -25,7 +25,7 @@ CREATE TABLE `order_item`
 (
     `id`            BIGINT AUTO_INCREMENT,
     `orderId`       BIGINT,
-    `productItemId` BIGINT       NOT NULL,
+    `productId` BIGINT       NOT NULL,
     `productPrice`  DECIMAL(15)  NOT NULL,
     `productName`   VARCHAR(255) NOT NULL,
     `quantity`      BIGINT       NOT NULL,

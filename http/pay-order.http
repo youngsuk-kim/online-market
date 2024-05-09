@@ -4,5 +4,5 @@ Content-Type: application/json
 {
     "orderId": 1,
     "paymentKey": "123",
-    "amount": 100000
+    "amount": 10000
 }

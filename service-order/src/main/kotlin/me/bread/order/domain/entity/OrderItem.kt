@@ -9,7 +9,7 @@ import java.math.BigDecimal
 class OrderItem(
     @Column("id") @Id val id: Long? = null,
     @Column("orderId") val orderId: Long? = null,
-    @Column("productItemId") val productItemId: Long,
+    @Column("productId") val productId: Long,
     @Column("productName") val productName: String,
     @Column("productPrice") val productPrice: BigDecimal,
     @Column("quantity") val quantity: Long,

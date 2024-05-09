@@ -7,5 +7,6 @@ import org.springframework.boot.runApplication
 class OrderApplication
 
 fun main(args: Array<String>) {
+    System.setProperty("kotlinx.coroutines.debug", "on")
     runApplication<OrderApplication>(*args)
 }
