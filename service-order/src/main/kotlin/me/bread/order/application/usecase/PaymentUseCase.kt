@@ -3,14 +3,13 @@ package me.bread.order.application.usecase
 import me.bread.order.application.external.PaymentApi
 import me.bread.order.application.service.OrderService
 import org.springframework.stereotype.Component
-import java.math.BigDecimal
 
 @Component
 class PaymentUseCase(
     private val paymentApi: PaymentApi,
     private val orderService: OrderService,
 ) {
-    suspend fun execute(orderId: Long, paymentKey: String, amount: BigDecimal) {
+    suspend fun execute(orderId: Long, paymentKey: String, amount: Long) {
         // 결제 승인 요청
         val tossPayment = paymentApi.execute(orderId, paymentKey, amount)
 

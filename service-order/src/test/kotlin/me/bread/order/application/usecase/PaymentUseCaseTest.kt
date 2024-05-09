@@ -15,7 +15,7 @@ class PaymentUseCaseTest : FeatureSpec(
 
             scenario("토스 페이먼츠에 결제 승인을 요청한다") {
                 // Given When
-                val tossPayment = FakePaymentApi.execute(1L, "test-id", BigDecimal(10_000))
+                val tossPayment = FakePaymentApi.execute(1L, "test-id", 10_000)
 
                 // Then
                 tossPayment.amount shouldBe BigDecimal.valueOf(10000)
@@ -25,7 +25,7 @@ class PaymentUseCaseTest : FeatureSpec(
             scenario("결제 정보를 주문 정보를 통해 검증한다") {
                 // Given
                 val order = Order.testPreorder(orderItems = orderItems())
-                val tossPayment = FakePaymentApi.execute(1L, "test-id", BigDecimal(34_000))
+                val tossPayment = FakePaymentApi.execute(1L, "test-id", 10_000)
 
                 // When Then
                 assertDoesNotThrow {

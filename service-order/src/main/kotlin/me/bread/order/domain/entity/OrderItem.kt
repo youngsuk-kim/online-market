@@ -7,8 +7,8 @@ import java.math.BigDecimal
 
 @Table("orders_item")
 class OrderItem(
-    @Column("id") @Id val id: Long = -1,
-    @Column("orderId") val orderId: Long = -1,
+    @Column("id") @Id val id: Long? = null,
+    @Column("orderId") val orderId: Long? = null,
     @Column("productItemId") val productItemId: Long,
     @Column("productName") val productName: String,
     @Column("productPrice") val productPrice: BigDecimal,

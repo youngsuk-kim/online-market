@@ -4,12 +4,11 @@ import me.bread.order.application.annotation.Local
 import me.bread.order.application.external.PaymentApi
 import me.bread.order.application.model.TossPayment
 import org.springframework.stereotype.Component
-import java.math.BigDecimal
 
 @Local
 @Component
 object FakePaymentApi : PaymentApi {
-    override fun execute(orderId: Long, paymentId: String, amount: BigDecimal): TossPayment {
+    override fun execute(orderId: Long, paymentId: String, amount: Long): TossPayment {
         return TossPayment(
             orderId = orderId,
             amount = amount,

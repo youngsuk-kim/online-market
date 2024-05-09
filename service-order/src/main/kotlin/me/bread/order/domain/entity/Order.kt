@@ -6,7 +6,7 @@ import me.bread.order.domain.enums.OrderStatus.PRE_ORDER
 import java.math.BigDecimal
 
 class Order(
-    private val id: Long? = null,
+    val id: Long? = null,
     var orderItems: List<OrderItem>,
     var status: OrderStatus,
 ) {
@@ -30,9 +30,9 @@ class Order(
 
     fun charge() = this.orderItems.sumOf { orderItem -> orderItem.productPrice }
 
-    fun validatePayment(orderId: Long, charge: BigDecimal) {
+    fun validatePayment(orderId: Long, amount: Long) {
         require(orderId == id) { "Order id should be $id" }
-        require(charge == charge()) { "Charge should be ${charge()}" }
+        require(BigDecimal(amount) == charge()) { "Charge should be ${charge()} but got $amount" }
     }
 
     fun payed() {

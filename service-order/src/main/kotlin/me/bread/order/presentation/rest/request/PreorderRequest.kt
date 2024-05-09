@@ -11,7 +11,7 @@ data class PreorderRequest(
     data class OrderItemRequest(
         val productItemId: Long,
         val productName: String,
-        val productPrice: String,
+        val productPrice: Long,
         val quantity: Long,
     ) {
         fun toOrderItem(): OrderItem {

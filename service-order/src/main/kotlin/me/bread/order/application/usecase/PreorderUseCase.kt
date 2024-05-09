@@ -12,7 +12,7 @@ class PreorderUseCase(
     private val orderService: OrderService,
     private val productService: ProductService,
 ) {
-    suspend fun execute(token: String, orderItems: List<OrderItem>) {
+    suspend fun execute(token: String, orderItems: List<OrderItem>): Long {
         // 고객 여부 확인
         authService.getCustomerId(token)
 
@@ -20,6 +20,6 @@ class PreorderUseCase(
         productService.verifyStock(orderItems)
 
         // 주문 아이템 생성
-        orderService.preorder(orderItems)
+        return orderService.preorder(orderItems)
     }
 }

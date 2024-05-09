@@ -14,11 +14,11 @@ class OrderController(
 
     @PostMapping("/api/orders/pre")
     suspend fun preorder(@RequestBody request: PreorderRequest): RestResponse<Any> {
-        preorderUseCase.execute(
+        val orderId = preorderUseCase.execute(
             token = request.token,
             orderItems = request.orderItems.map { it.toOrderItem() },
         )
 
-        return RestResponse.success()
+        return RestResponse.success(orderId)
     }
 }

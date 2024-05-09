@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository
 class OrderRepositoryAdapter(
     private val orderCoroutineRepository: OrderCoroutineRepository,
 ) : OrderRepository {
-    override suspend fun save(orderEntity: OrderEntity) {
-        orderCoroutineRepository.save(orderEntity)
+    override suspend fun save(orderEntity: OrderEntity): Long {
+        return orderCoroutineRepository.save(orderEntity).id!!
     }
 
     override suspend fun findById(id: Long, orderItems: List<OrderItem>): Order {

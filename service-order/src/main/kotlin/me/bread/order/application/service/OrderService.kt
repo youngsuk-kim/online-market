@@ -1,7 +1,5 @@
 package me.bread.order.application.service
 
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import me.bread.order.adapter.OrderItemMapper
 import me.bread.order.adapter.OrderMapper
 import me.bread.order.domain.entity.Order
@@ -10,7 +8,6 @@ import me.bread.order.domain.repository.OrderItemRepository
 import me.bread.order.domain.repository.OrderRepository
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import java.math.BigDecimal
 
 @Component
 class OrderService(
@@ -19,20 +16,16 @@ class OrderService(
 ) {
 
     @Transactional
-    suspend fun preorder(orderItem: List<OrderItem>) {
+    suspend fun preorder(orderItem: List<OrderItem>): Long {
         val order = Order.preorder(orderItems = orderItem)
 
-        coroutineScope {
-            launch {
-                order.orderItems.forEach {
-                    orderItemRepository.save(OrderItemMapper.toEntity(it))
-                }
-            }
+        val orderId = orderRepository.save(OrderMapper.toEntity(order))
 
-            launch {
-                orderRepository.save(OrderMapper.toEntity(order))
-            }
-        }.join()
+        order.orderItems.forEach {
+            orderItemRepository.save(OrderItemMapper.toEntity(it, orderId))
+        }
+
+        return orderId
     }
 
     @Transactional
@@ -42,7 +35,7 @@ class OrderService(
     }
 
     @Transactional(readOnly = true)
-    suspend fun validatePay(orderId: Long, amount: BigDecimal) {
+    suspend fun validatePay(orderId: Long, amount: Long) {
         val order = findOrderBy(orderId)
         order.validatePayment(orderId, amount)
     }
