@@ -11,15 +11,15 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class OrderRepositoryAdapter(
-    private val orderR2dbcRepository: OrderR2dbcRepository,
+    private val orderCoroutineRepository: OrderCoroutineRepository,
 ) : OrderRepository {
     override suspend fun save(orderEntity: OrderEntity) {
-        orderR2dbcRepository.save(orderEntity)
+        orderCoroutineRepository.save(orderEntity)
     }
 
     override suspend fun findById(id: Long, orderItems: List<OrderItem>): Order {
         val orderEntity = (
-            orderR2dbcRepository.findById(id)
+            orderCoroutineRepository.findById(id)
                 ?: throw RestException(ErrorType.INVALID_ARG_ERROR, "Order with ID $id not found")
             )
 

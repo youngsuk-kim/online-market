@@ -9,14 +9,14 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class OrderItemRepositoryAdapter(
-    private val orderItemR2dbcRepository: OrderItemR2dbcRepository,
+    private val orderItemCoroutineRepository: OrderItemCoroutineRepository,
 ) : OrderItemRepository {
     override suspend fun save(orderItemEntity: OrderItemEntity) {
-        orderItemR2dbcRepository.save(orderItemEntity)
+        orderItemCoroutineRepository.save(orderItemEntity)
     }
 
     override suspend fun findByOrderId(orderId: Long): List<OrderItem> {
-        return orderItemR2dbcRepository.findByOrderId(orderId)
+        return orderItemCoroutineRepository.findByOrderId(orderId)
             ?.map {
                 OrderItem(
                     orderId = it.orderId,
