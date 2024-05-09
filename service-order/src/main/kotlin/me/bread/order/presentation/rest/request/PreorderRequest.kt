@@ -11,14 +11,14 @@ data class PreorderRequest(
     data class OrderItemRequest(
         val productItemId: Long,
         val productName: String,
-        val productPrice: BigDecimal,
+        val productPrice: String,
         val quantity: Long,
     ) {
         fun toOrderItem(): OrderItem {
             return OrderItem(
                 productItemId = this.productItemId,
                 productName = this.productName,
-                productPrice = this.productPrice,
+                productPrice = BigDecimal(this.productPrice),
                 quantity = this.quantity,
             )
         }

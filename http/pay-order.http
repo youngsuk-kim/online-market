@@ -1,0 +1,8 @@
+POST http://localhost:8081/api/payments/confirm
+Content-Type: application/json
+
+{
+    "orderId": 1,
+    "paymentKey": "123",
+    "amount": 100000
+}

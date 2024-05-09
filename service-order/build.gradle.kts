@@ -1,3 +1,5 @@
+val mockkVersion: String = "1.13.10"
+
 plugins {
     kotlin("jvm") version "1.9.23"
     id("org.springframework.boot") version "3.2.5"
@@ -36,6 +38,11 @@ dependencies {
     runtimeOnly("com.mysql:mysql-connector-j")
     implementation("io.r2dbc:r2dbc-h2:1.0.0.RELEASE")
     runtimeOnly("com.h2database:h2:2.1.214")
+
+    testImplementation("io.mockk:mockk:$mockkVersion")
+    testImplementation("io.rest-assured:rest-assured:5.4.0")
+    testImplementation("io.rest-assured:spring-mock-mvc:5.4.0")
+    testImplementation("io.rest-assured:json-path:5.4.0")
 }
 
 tasks.test {

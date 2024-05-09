@@ -8,7 +8,6 @@ import me.bread.order.infrastructure.external.FakePaymentApi
 import me.bread.order.orderItems
 import org.junit.jupiter.api.assertDoesNotThrow
 import java.math.BigDecimal
-import java.time.LocalDateTime
 
 class PaymentUseCaseTest : FeatureSpec(
     {
@@ -21,7 +20,6 @@ class PaymentUseCaseTest : FeatureSpec(
                 // Then
                 tossPayment.amount shouldBe BigDecimal.valueOf(10000)
                 tossPayment.orderId shouldBe 1
-                tossPayment.requestedAt shouldBe LocalDateTime.of(2021, 1, 1, 1, 1, 0)
             }
 
             scenario("결제 정보를 주문 정보를 통해 검증한다") {

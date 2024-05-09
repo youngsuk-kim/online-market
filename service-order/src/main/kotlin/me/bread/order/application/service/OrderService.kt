@@ -28,16 +28,11 @@ class OrderService(
                     orderItemRepository.save(OrderItemMapper.toEntity(it))
                 }
             }
+
             launch {
                 orderRepository.save(OrderMapper.toEntity(order))
             }
         }.join()
-    }
-
-    @Transactional(readOnly = true)
-    suspend fun findOrderBy(orderId: Long): Order {
-        val orderItems = findOrderItemBy(orderId)
-        return orderRepository.findById(orderId, orderItems)
     }
 
     @Transactional
@@ -53,5 +48,8 @@ class OrderService(
     }
 
     @Transactional(readOnly = true)
-    suspend fun findOrderItemBy(orderId: Long) = orderItemRepository.findByOrderId(orderId)
+    suspend fun findOrderBy(orderId: Long): Order {
+        val orderItems = orderItemRepository.findByOrderId(orderId)
+        return orderRepository.findById(orderId, orderItems)
+    }
 }

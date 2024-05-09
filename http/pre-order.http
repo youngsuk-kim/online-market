@@ -7,16 +7,14 @@ Content-Type: application/json
         {
             "productItemId": 1,
             "productName": "Running Shoes",
-            "productPrice": 99.99,
-            "quantity": 1,
-            "price": 99.99
+            "productPrice": 5000,
+            "quantity": 1
         },
         {
             "productItemId": 2,
             "productName": "Sneakers",
-            "productPrice": 79.99,
-            "quantity": 2,
-            "price": 159.98
+            "productPrice": 5000,
+            "quantity": 1
         }
     ]
 }

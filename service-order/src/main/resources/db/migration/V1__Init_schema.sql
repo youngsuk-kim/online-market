@@ -23,6 +23,7 @@ CREATE TABLE `orders`
 CREATE TABLE `order_item`
 (
     `id`            BIGINT AUTO_INCREMENT,
+    `orderId`       BIGINT,
     `productItemId` BIGINT         NOT NULL,
     `productPrice`  DECIMAL(15, 2) NOT NULL,
     `productName`   VARCHAR(255)   NOT NULL,
