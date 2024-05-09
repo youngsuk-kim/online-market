@@ -19,7 +19,7 @@ class OrderService(
 
     @Transactional
     suspend fun preorder(orderItem: List<OrderItem>) {
-        val order = Order.preorder(orderItem)
+        val order = Order.preorder(orderItems = orderItem)
 
         coroutineScope {
             launch {

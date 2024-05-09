@@ -1,19 +1,14 @@
 package me.bread.order.infrastructure.external
 
-import me.bread.order.application.annotation.Local
+import me.bread.order.application.annotation.LocalDev
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.client.RestTemplate
 
-@Local
+@LocalDev
 object MockPaymentApi {
-    fun sendPaymentRequest(
-        orderId: String,
-        amount: String,
-        successUrl: String,
-        paymentKey: String,
-    ) {
+    fun execute(orderId: String, amount: String, successUrl: String, paymentKey: String) {
         val headers = HttpHeaders().apply {
             contentType = MediaType.APPLICATION_JSON
         }
