@@ -8,6 +8,7 @@ import java.math.BigDecimal
 @Table("order_item")
 class OrderItemEntity(
     @Id @Column("id") val id: Long? = null,
+    @Column("orderId") val orderId: Long,
     @Column("productItemId") val productItemId: Long,
     @Column("productName") val productName: String,
     @Column("productPrice") val productPrice: BigDecimal,

@@ -10,6 +10,7 @@ import me.bread.order.domain.repository.OrderItemRepository
 import me.bread.order.domain.repository.OrderRepository
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
+import java.math.BigDecimal
 
 @Component
 class OrderService(
@@ -24,14 +25,33 @@ class OrderService(
         coroutineScope {
             launch {
                 order.orderItems.forEach {
-                    println(it.productItemId)
                     orderItemRepository.save(OrderItemMapper.toEntity(it))
                 }
             }
-
             launch {
                 orderRepository.save(OrderMapper.toEntity(order))
             }
         }.join()
     }
+
+    @Transactional(readOnly = true)
+    suspend fun findOrderBy(orderId: Long): Order {
+        val orderItems = findOrderItemBy(orderId)
+        return orderRepository.findById(orderId, orderItems)
+    }
+
+    @Transactional
+    suspend fun paid(orderId: Long) {
+        val order = findOrderBy(orderId)
+        orderRepository.save(OrderMapper.toEntity(order))
+    }
+
+    @Transactional(readOnly = true)
+    suspend fun validatePay(orderId: Long, amount: BigDecimal) {
+        val order = findOrderBy(orderId)
+        order.validatePayment(orderId, amount)
+    }
+
+    @Transactional(readOnly = true)
+    suspend fun findOrderItemBy(orderId: Long) = orderItemRepository.findByOrderId(orderId)
 }

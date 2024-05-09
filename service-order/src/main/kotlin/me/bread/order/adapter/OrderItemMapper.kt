@@ -11,6 +11,7 @@ object OrderItemMapper {
             productPrice = orderItem.productPrice,
             quantity = orderItem.quantity,
             productName = orderItem.productName,
+            orderId = orderItem.orderId,
         )
     }
 }

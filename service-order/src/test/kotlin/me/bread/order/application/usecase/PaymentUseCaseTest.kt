@@ -34,7 +34,6 @@ class PaymentUseCaseTest : FeatureSpec(
                     order.validatePayment(
                         tossPayment.orderId,
                         tossPayment.amount,
-                        tossPayment.requestedAt,
                     )
                 }
             }
