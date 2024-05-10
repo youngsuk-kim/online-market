@@ -84,16 +84,14 @@ class PreorderUseCaseTest : FeatureSpec(
             scenario("관리자는 결제 정보를 받아서 저장한다") {
                 // Given
                 val orderId = 1L
-                val customerName = "김영석"
-                val customerEmail = "example@gmail.com"
+                val customerId = 1L
 
                 // When
-                val payment = Payment.create(orderId, customerEmail, customerName)
+                val payment = Payment.create(orderId, customerId)
 
                 // Then
                 payment.orderId shouldBe 1L
-                payment.buyerName shouldBe "김영석"
-                payment.buyerEmail shouldBe "example@gmail.com"
+                payment.customerId shouldBe 1L
             }
         }
     },
