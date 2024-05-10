@@ -2,20 +2,20 @@ version: '3.8'
 
 services:
 
-#    # MySQL CORE
-#    mysql_core:
-#        image: mysql:8.0
-#        environment:
-#            MYSQL_ROOT_HOST: '%'
-#            MYSQL_ROOT_PASSWORD: secret
-#            MYSQL_DATABASE: orders
-#        ports:
-#            - "3306:3306"
-#        volumes:
-#            - mysql_core_data:/var/lib/mysql
-#        restart: always
+    # MySQL Product
+    mysql_product:
+        image: mysql:8.0
+        environment:
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_ROOT_PASSWORD: secret1!
+            MYSQL_DATABASE: product
+        ports:
+            - "3307:3306"
+        volumes:
+            - mysql_product_data:/var/lib/mysql
+        restart: always
 
-    # MySQL ORDER
+    # MySQL Order
     mysql_order:
         image: mysql:8.0
         environment:
@@ -70,7 +70,7 @@ services:
 
 # Volume
 volumes:
-    mysql_core_data:
+    mysql_product_data:
     mysql_order_data:
 networks:
     proxy:

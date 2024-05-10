@@ -1,11 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val koTestVersion = "5.8.1"
+
 plugins {
     id("org.springframework.boot") version "3.2.5"
     id("io.spring.dependency-management") version "1.1.4"
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.spring") version "1.9.23"
     kotlin("plugin.jpa") version "1.9.23"
+    id("org.jlleitschuh.gradle.ktlint").version("12.1.0")
 }
 
 group = "me.bread"
@@ -29,6 +32,14 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     runtimeOnly("com.mysql:mysql-connector-j")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // redis
+    implementation("io.lettuce:lettuce-core:6.3.2.RELEASE")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+    // kotest
+    testImplementation("io.kotest:kotest-assertions-core:$koTestVersion")
+    testImplementation("io.kotest:kotest-runner-junit5:$koTestVersion")
 }
 
 tasks.withType<KotlinCompile> {

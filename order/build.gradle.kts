@@ -1,4 +1,5 @@
 val mockkVersion: String = "1.13.10"
+val koTestVersion = "5.8.1"
 
 plugins {
     kotlin("jvm") version "1.9.23"
@@ -10,7 +11,6 @@ plugins {
 
 group = "me.bread"
 version = "1.0"
-val koTestVersion = "5.8.1"
 
 repositories {
     mavenCentral()
@@ -42,7 +42,6 @@ dependencies {
 
     testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("io.rest-assured:rest-assured:5.4.0")
-    testImplementation("io.rest-assured:spring-mock-mvc:5.4.0")
     testImplementation("io.rest-assured:json-path:5.4.0")
 }
 
