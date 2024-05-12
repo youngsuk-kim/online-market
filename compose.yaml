@@ -34,26 +34,38 @@ services:
         ports:
             - "6379:6379"
         restart: always
-#
-#    # Kafka
-#    zookeeper:
-#        image: zookeeper:latest
-#        ports:
-#            - "2181:2181"
-#
-#    kafka:
-#        image: confluentinc/cp-kafka:latest
-#        ports:
-#            - "9092:9092"
-#        environment:
-#            KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9092
-#            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
-#            KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
-#            KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
-#            KAFKA_CREATE_TOPICS: "my-topic:1:1"
-#            KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-#        depends_on:
-#            - zookeeper
+
+    # Kafka
+    zookeeper:
+        image: confluentinc/cp-zookeeper:latest
+        ports:
+            - "2181:2181"
+        environment:
+            ZOOKEEPER_CLIENT_PORT: 2181
+            ZOOKEEPER_TICK_TIME: 2000
+
+    kafka:
+        image: confluentinc/cp-kafka:latest
+        ports:
+            - "9092:9092"
+        environment:
+            KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9092
+            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+            KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
+            KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+            KAFKA_CREATE_TOPICS: "hello-topic:1:1"  # 토픽 "my-topic"을 1 파티션과 복제 인자 1로 설정
+            KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+        depends_on:
+            - zookeeper
+
+# Volume
+volumes:
+    mysql_product_data:
+    mysql_order_data:
+#networks:
+#    proxy:
+
 #
 #    # haproxy
 #    haproxy:
@@ -67,15 +79,6 @@ services:
 #            - myapp2
 #        networks:
 #            - proxy
-
-# Volume
-volumes:
-    mysql_product_data:
-    mysql_order_data:
-networks:
-    proxy:
-
-
 #
 #  prometheus:
 #    image: prom/prometheus

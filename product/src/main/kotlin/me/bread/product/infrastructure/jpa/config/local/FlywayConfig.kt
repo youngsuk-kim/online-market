@@ -19,7 +19,7 @@ class FlywayConfig(private val dataSource: DataSource) {
 
     @Bean
     fun cleanDatabase(flyway: Flyway): Flyway {
-        flyway.clean()
+//        flyway.clean()
         flyway.migrate()
 
         return flyway
