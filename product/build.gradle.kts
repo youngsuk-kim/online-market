@@ -36,6 +36,7 @@ dependencies {
     // redis
     implementation("io.lettuce:lettuce-core:6.3.2.RELEASE")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.springframework.integration:spring-integration-redis")
 
     // kotest
     testImplementation("io.kotest:kotest-assertions-core:$koTestVersion")

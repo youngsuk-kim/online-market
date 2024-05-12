@@ -27,13 +27,13 @@ services:
         volumes:
             - mysql_order_data:/var/lib/mysql
         restart: always
-#
-#    # Redis
-#    redis:
-#        image: redis:latest
-#        ports:
-#            - "6379:6379"
-#        restart: always
+
+    # Redis
+    redis:
+        image: redis:latest
+        ports:
+            - "6379:6379"
+        restart: always
 #
 #    # Kafka
 #    zookeeper:
