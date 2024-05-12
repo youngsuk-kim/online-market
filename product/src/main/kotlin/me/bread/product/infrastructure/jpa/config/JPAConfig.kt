@@ -31,7 +31,7 @@ class JPAConfig(private val dataSource: DataSource) {
 
     fun additionalProperties(): Properties {
         val properties = Properties()
-        properties.setProperty("hibernate.hbm2ddl.auto", "create")
+        properties.setProperty("hibernate.hbm2ddl.auto", "none")
         properties.setProperty("hibernate.show_sql", "true")
         properties.setProperty("hibernate.format_sql", "true")
         return properties
