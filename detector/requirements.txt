@@ -3,3 +3,4 @@ uvicorn
 kafka-python
 pydantic
 pydantic-settings
+kafka-python-ng
