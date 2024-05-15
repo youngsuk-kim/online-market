@@ -49,6 +49,12 @@ dependencies {
     // datasource
     runtimeOnly("com.h2database:h2")
     runtimeOnly("com.mysql:mysql-connector-j")
+
+    // testcontainers
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
+    testImplementation("org.testcontainers:kafka")
+    testImplementation("org.testcontainers:mysql")
 }
 
 tasks.withType<KotlinCompile> {

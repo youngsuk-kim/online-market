@@ -16,7 +16,7 @@ class StockManageUseCaseTest : FeatureSpec(
                     1,
                     "나이키 1번 모델",
                     BigDecimal(1000),
-                    listOf(
+                    mutableListOf(
                         ProductItem(
                             id = 1,
                             optionKey = ProductOption.COLOR,
