@@ -12,4 +12,12 @@ object ProductMapper {
             price = product.price,
         )
     }
+
+    fun toDomain(productEntity: ProductEntity): Product {
+        return Product(
+            id = productEntity.id,
+            name = productEntity.name,
+            price = productEntity.price,
+        )
+    }
 }

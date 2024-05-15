@@ -1,7 +1,6 @@
 package me.bread.product.infrastructure.jpa.repository
 
 import me.bread.product.domain.entity.Product
-import me.bread.product.domain.entity.ProductItem
 import me.bread.product.domain.repository.ProductRepository
 import me.bread.product.mapper.ProductItemMapper
 import me.bread.product.mapper.ProductMapper
@@ -14,24 +13,11 @@ class ProductRepositoryAdapter(
     private val productItemJpaRepository: ProductItemJpaRepository,
 ) : ProductRepository {
     override fun findById(id: Long): Product? {
-        val product = productJpaRepository.findByIdOrNull(id)
-            .let {
-                Product(
-                    id = it!!.id,
-                    name = it.name,
-                    price = it.price,
-                )
-            }
+        val productEntity = productJpaRepository.findByIdOrNull(id) ?: return null
+        val product = ProductMapper.toDomain(productEntity)
 
         val productItems = productItemJpaRepository.findByProductEntityId(product.id)
-            .map { item ->
-                ProductItem(
-                    id = item.id,
-                    optionKey = item.optionKey,
-                    optionValue = item.optionValue,
-                    stock = item.stock,
-                )
-            }
+            .map(ProductItemMapper::toDomain)
 
         product.productItems.addAll(productItems)
 

@@ -15,4 +15,13 @@ object ProductItemMapper {
             stock = item.stock,
         )
     }
+
+    fun toDomain(productItemEntity: ProductItemEntity): ProductItem {
+        return ProductItem(
+            id = productItemEntity.id,
+            optionKey = productItemEntity.optionKey,
+            optionValue = productItemEntity.optionValue,
+            stock = productItemEntity.stock,
+        )
+    }
 }
