@@ -1,4 +1,4 @@
-package me.bread.order.adapter
+package me.bread.order.mapper
 
 import me.bread.order.domain.entity.PaymentItem
 import me.bread.order.infrastructure.r2dbc.entity.PaymentItemEntity

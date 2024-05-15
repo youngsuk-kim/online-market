@@ -18,8 +18,15 @@ class StockService(
         if (lock.tryLock()) {
             // 락 획득
             try {
-                productService.findById(productId)?.decreaseStock(itemId)
-                    ?: throw RestException(ErrorType.INVALID_ARG_ERROR, "product item not found")
+                val product = (
+                    productService.findById(productId)?.decreaseStock(itemId)
+                        ?: throw RestException(
+                            ErrorType.INVALID_ARG_ERROR,
+                            "product item not found",
+                        )
+                    )
+
+                productService.save(product)
             } finally {
                 lock.unlock()
             }

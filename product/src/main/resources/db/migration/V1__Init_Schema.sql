@@ -8,10 +8,10 @@ create table product
 
 create table product_item
 (
-    optionKey   enum ('COLOR', 'SIZE'),
+    option_key   enum ('COLOR', 'SIZE'),
     stock       integer not null,
     id          bigint  not null auto_increment,
-    productId   bigint,
-    optionValue varchar(255),
+    product_id   bigint,
+    option_value varchar(255),
     primary key (id)
 )

@@ -4,4 +4,5 @@ import me.bread.product.domain.entity.Product
 
 interface ProductRepository {
     fun findById(id: Long): Product?
+    fun save(product: Product)
 }

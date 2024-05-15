@@ -6,11 +6,12 @@ class Product(
     val id: Long = 0,
     var name: String,
     var price: BigDecimal,
-    val productItems: List<ProductItem> = emptyList(),
+    val productItems: MutableList<ProductItem> = mutableListOf(),
 ) {
-    fun decreaseStock(itemId: Long) {
+    fun decreaseStock(itemId: Long): Product {
         this.productItems.find { productItem -> productItem.id == itemId }
             ?.decrease()
+        return this
     }
 
     fun stock(itemId: Long): Int? {
