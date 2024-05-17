@@ -1,6 +1,7 @@
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
+val hikaricp_version: String by project
 
 plugins {
     kotlin("jvm") version "1.9.24"
@@ -43,4 +44,8 @@ dependencies {
 
     testImplementation("io.kotest:kotest-assertions-core:$version")
     testImplementation("io.kotest:kotest-runner-junit5:$version")
+
+    implementation("com.zaxxer:HikariCP:$hikaricp_version")
+
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 }
