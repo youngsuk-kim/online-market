@@ -1,0 +1,36 @@
+spring:
+    profiles: local, local-dev
+    cloud:
+        gateway:
+            routes:
+                - id: customer-route
+                  uri: http://localhost:8081
+                  predicates:
+                      - Path=/api/customers/**
+                - id: order-route
+                  uri: http://localhost:8082
+                  predicates:
+                      - Path=/api/orders/**
+                - id: product-route
+                  uri: http://localhost:8083
+                  predicates:
+                      - Path=/api/products/**
+
+---
+spring:
+    profiles: live
+    cloud:
+        gateway:
+            routes:
+                - id: customer-route
+                  uri: http://live-customers-service
+                  predicates:
+                      - Path=/api/customers/**
+                - id: order-route
+                  uri: http://live-orders-service
+                  predicates:
+                      - Path=/api/orders/**
+                - id: product-route
+                  uri: http://live-products-service
+                  predicates:
+                      - Path=/api/products/**
