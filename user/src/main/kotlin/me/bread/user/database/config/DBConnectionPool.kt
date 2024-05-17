@@ -1,4 +1,4 @@
-package me.bread.user.database
+package me.bread.user.database.config
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource

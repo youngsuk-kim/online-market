@@ -7,7 +7,7 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import kotlinx.serialization.json.Json
-import me.bread.user.database.DBConnectionPool
+import me.bread.user.database.config.DBConnectionPool
 
 fun main() {
     DBConnectionPool.init()
