@@ -1,8 +1,0 @@
-POST http://localhost:3000/api/payments/confirm
-Content-Type: application/json
-
-{
-    "orderId": 1,
-    "paymentKey": "123",
-    "amount": 10000
-}
