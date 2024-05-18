@@ -1,5 +1,5 @@
 ### 인프라 설계도
-![img.png](infra.png)
+![img.png](docs/infra.png)
 
 ### 프로젝트 아키텍처 설계 원칙
 
