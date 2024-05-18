@@ -9,12 +9,12 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 import me.bread.user.entity.User
 import me.bread.user.service.UserService
-import me.bread.user.usecase.CreateUserRequest
+import me.bread.user.usecase.SignInRequest
 import me.bread.user.usecase.SignInUseCase
 
 fun Route.userRouting() = route("/api/users") {
     post {
-        with(call.receive<CreateUserRequest>()) { SignInUseCase.register(this) }
+        with(call.receive<SignInRequest>()) { SignInUseCase.register(this) }
     }
 
     get {

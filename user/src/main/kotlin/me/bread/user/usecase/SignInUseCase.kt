@@ -4,7 +4,7 @@ import me.bread.user.service.UserService
 
 object SignInUseCase {
 
-    fun register(request: CreateUserRequest) {
+    fun register(request: SignInRequest) {
         UserService.save(request.toDomain())
     }
 }
