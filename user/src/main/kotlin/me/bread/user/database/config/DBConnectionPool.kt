@@ -7,7 +7,7 @@ import org.jetbrains.exposed.sql.Database
 object DBConnectionPool {
 
     fun init() {
-        val database = Database.connect(
+        Database.connect(
             createHikariDataSource(
                 url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;",
                 driver = "org.h2.Driver",

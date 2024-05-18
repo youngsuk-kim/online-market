@@ -2,7 +2,7 @@ package me.bread.user.usecase
 
 import me.bread.user.service.UserService
 
-object UserRegisterUseCase {
+object SignInUseCase {
 
     fun register(request: CreateUserRequest) {
         UserService.save(request.toDomain())
