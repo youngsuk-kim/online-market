@@ -1,13 +1,13 @@
 package me.bread.user.utils
 
+import org.mindrot.jbcrypt.BCrypt
+
 object PasswordEncoder {
     fun hashPassword(password: String): String {
-        return ""
-//        return BCrypt.hashpw(password, BCrypt.gensalt())
+        return BCrypt.hashpw(password, BCrypt.gensalt())
     }
 
     fun verifyPassword(plainPassword: String, hashedPassword: String): Boolean {
-        return true
-//        return BCrypt.checkpw(plainPassword, hashedPassword)
+        return BCrypt.checkpw(plainPassword, hashedPassword)
     }
 }
