@@ -44,7 +44,7 @@ dependencies {
     implementation("io.ktor:ktor-serialization-jackson:$ktor_version")
 
     // logging
-    implementation("org.slf4j:slf4j-api:2.0.13")
+    implementation("ch.qos.logback:logback-classic:1.5.18")
 
     // db
     implementation("com.zaxxer:HikariCP:$hikaricp_version")
@@ -52,7 +52,6 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jdbc:0.41.1")
     implementation("org.jetbrains.exposed:exposed-dao:0.41.1")
     implementation("com.h2database:h2:2.1.214")
-    implementation("io.github.flaxoos:ktor-server-kafka-jvm:1.+")
 
     // test
     testImplementation("io.ktor:ktor-server-tests-jvm")
