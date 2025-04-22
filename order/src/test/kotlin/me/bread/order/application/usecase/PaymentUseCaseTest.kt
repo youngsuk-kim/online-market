@@ -4,7 +4,7 @@ import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.matchers.shouldBe
 import me.bread.order.domain.entity.Order
 import me.bread.order.domain.enums.OrderStatus
-import me.bread.order.infrastructure.external.FakePaymentApi
+import me.bread.order.infrastructure.external.test.FakePaymentApi
 import me.bread.order.orderItems
 import org.junit.jupiter.api.assertDoesNotThrow
 import java.math.BigDecimal

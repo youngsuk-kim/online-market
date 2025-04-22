@@ -8,9 +8,9 @@ import me.bread.order.application.service.ProductService
 import me.bread.order.domain.entity.Order
 import me.bread.order.domain.entity.Payment
 import me.bread.order.domain.vo.PhoneNumber
-import me.bread.order.infrastructure.external.AuthFakeApi
-import me.bread.order.infrastructure.external.DeliveryFakeApi
-import me.bread.order.infrastructure.external.ProductFakeApi
+import me.bread.order.infrastructure.external.test.AuthFakeApi
+import me.bread.order.infrastructure.external.test.DeliveryFakeApi
+import me.bread.order.infrastructure.external.test.ProductFakeApi
 import me.bread.order.orderItems
 import org.junit.jupiter.api.assertDoesNotThrow
 import java.math.BigDecimal

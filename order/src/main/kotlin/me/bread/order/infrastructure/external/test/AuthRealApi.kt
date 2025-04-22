@@ -1,4 +1,4 @@
-package me.bread.order.infrastructure.external
+package me.bread.order.infrastructure.external.test
 
 import me.bread.order.application.annotation.Live
 import me.bread.order.application.external.AuthApi

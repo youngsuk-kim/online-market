@@ -1,4 +1,4 @@
-package me.bread.order.infrastructure.external
+package me.bread.order.infrastructure.external.test
 
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
