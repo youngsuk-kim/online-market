@@ -1,7 +1,7 @@
 package me.bread.product.application.service
 
-import me.bread.order.application.annotation.Local
-import me.bread.order.application.annotation.LocalDev
+import me.bread.product.application.annotation.Local
+import me.bread.product.application.annotation.LocalDev
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 

@@ -1,6 +1,6 @@
 package me.bread.product.infrastructure.redis
 
-import me.bread.order.application.annotation.Live
+import me.bread.product.application.annotation.Live
 import me.bread.product.application.service.LockManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.redis.connection.RedisConnectionFactory

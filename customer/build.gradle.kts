@@ -55,6 +55,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:kafka")
     testImplementation("org.testcontainers:mysql")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 }
 
 tasks.withType<KotlinCompile> {

@@ -1,6 +1,6 @@
 package me.bread.product.infrastructure.jpa.config.local
 
-import me.bread.order.application.annotation.LocalDev
+import me.bread.product.application.annotation.LocalDev
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.jdbc.datasource.DriverManagerDataSource

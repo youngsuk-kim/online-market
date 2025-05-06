@@ -1,4 +1,4 @@
-package me.bread.order.application.annotation
+package me.bread.product.application.annotation
 
 import org.springframework.context.annotation.Profile
 
