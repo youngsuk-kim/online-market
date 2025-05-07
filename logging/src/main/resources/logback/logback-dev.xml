@@ -15,7 +15,7 @@
         <destination>localhost:5000</destination> <!-- Logstash 호스트와 포트 -->
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <!-- 애플리케이션 이름 -->
-            <customFields>{"application":"my-application","environment":"production"}</customFields>
+            <customFields>{"application":"e-commerce-app","environment":"dev"}</customFields>
         </encoder>
         <!-- 접속 재시도 설정 -->
         <reconnectionDelay>1 second</reconnectionDelay>
