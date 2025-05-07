@@ -1,4 +1,10 @@
 spring:
+    config:
+        import:
+            - logging.yml
+---
+
+spring:
     profiles: local, local-dev
     cloud:
         gateway:

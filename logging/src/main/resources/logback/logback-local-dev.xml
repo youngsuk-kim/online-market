@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 콘솔 출력 설정 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%clr(%d{HH:mm:ss.SSS}){faint}|%clr(${level:-%5p})|%32X{traceId:-},%16X{spanId:-}|%clr(%-40.40logger{39}){cyan}%clr(|){faint}%m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Logstash 연동 설정 -->
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>localhost:5000</destination> <!-- Logstash 호스트와 포트 -->
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <!-- 애플리케이션 이름 -->
+            <customFields>{"application":"my-application","environment":"production"}</customFields>
+        </encoder>
+        <!-- 접속 재시도 설정 -->
+        <reconnectionDelay>1 second</reconnectionDelay>
+        <connectionTimeout>5 seconds</connectionTimeout>
+        <keepAliveDuration>5 minutes</keepAliveDuration>
+    </appender>
+
+    <!-- 로거 설정 -->
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="me.bread.customer" level="DEBUG"/>
+
+    <!-- Tomcat 관련 로그 필터링 -->
+    <logger name="org.apache.coyote.AbstractProtocol" level="WARN" />
+    <logger name="org.apache.catalina.core.StandardService" level="WARN" />
+    <logger name="org.apache.catalina.core.StandardEngine" level="WARN" />
+    <logger name="org.apache.catalina.core.ApplicationContext" level="WARN" />
+    <logger name="org.apache.catalina" level="WARN" />
+    <logger name="org.apache.tomcat" level="WARN" />
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="LOGSTASH"/> <!-- Logstash로 로그 전송 -->
+    </root>
+</configuration>
