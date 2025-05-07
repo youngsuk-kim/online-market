@@ -25,15 +25,8 @@
 
     <!-- 로거 설정 -->
     <logger name="org.springframework" level="INFO"/>
-    <logger name="me.bread.customer" level="DEBUG"/>
+    <logger name="me.bread.customer" level="INFO"/>
 
-    <!-- Tomcat 관련 로그 필터링 -->
-    <logger name="org.apache.coyote.AbstractProtocol" level="WARN" />
-    <logger name="org.apache.catalina.core.StandardService" level="WARN" />
-    <logger name="org.apache.catalina.core.StandardEngine" level="WARN" />
-    <logger name="org.apache.catalina.core.ApplicationContext" level="WARN" />
-    <logger name="org.apache.catalina" level="WARN" />
-    <logger name="org.apache.tomcat" level="WARN" />
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
