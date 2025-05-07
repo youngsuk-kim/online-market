@@ -1,8 +1,10 @@
 package me.bread.customer.domain.entity
 
 import jakarta.persistence.Column
+import jakarta.persistence.Entity
 import jakarta.persistence.Id
 
+@Entity
 class Customer(
     @Id
     val id: Long? = null,

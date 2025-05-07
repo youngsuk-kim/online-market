@@ -16,6 +16,6 @@ class RegisterUseCase(
             phone = phone,
         )
 
-        customerRepository.create(customer)
+        customerRepository.save(customer)
     }
 }
