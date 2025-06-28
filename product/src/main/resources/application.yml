@@ -1,7 +1,2 @@
-spring:
-    config:
-        import:
-            - logging.yml
-
 server:
     port: 8081

@@ -7,7 +7,6 @@ import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
 
 @Local
-@LocalDev
 @Component
 class LocalLockManager : LockManager {
     private val lock = ReentrantLock()
