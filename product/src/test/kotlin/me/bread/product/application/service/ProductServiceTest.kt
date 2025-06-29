@@ -16,7 +16,7 @@ class ProductServiceTest : StringSpec({
     val transactionManager = mockk<CustomTransactionManager>()
 
     // 테스트할 서비스 생성
-    val productService = ProductService(productRepository, transactionManager)
+    val productService = ProductService(productRepository,)
 
     // 테스트 데이터
     val productId = 1L
@@ -24,9 +24,6 @@ class ProductServiceTest : StringSpec({
 
     "상품이 저장소에 존재하는 경우, ID로 상품을 찾을 때 상품을 반환해야 한다" {
         // 테스트를 위한 목 설정
-        every { transactionManager.executeInTransaction<Product?>(any()) } answers {
-            firstArg<() -> Product?>().invoke()
-        }
         every { productRepository.findById(productId) } returns product
 
         // 실행
@@ -39,9 +36,6 @@ class ProductServiceTest : StringSpec({
 
     "상품이 저장소에 존재하지 않는 경우, ID로 상품을 찾을 때 null을 반환해야 한다" {
         // 테스트를 위한 목 설정
-        every { transactionManager.executeInTransaction<Product?>(any()) } answers {
-            firstArg<() -> Product?>().invoke()
-        }
         every { productRepository.findById(productId) } returns null
 
         // 실행
@@ -54,9 +48,6 @@ class ProductServiceTest : StringSpec({
 
     "저장할 상품이 주어진 경우, 상품을 저장할 때 상품을 저장소에 저장해야 한다" {
         // 테스트를 위한 목 설정
-        every { transactionManager.executeInTransaction<Unit>(any()) } answers {
-            firstArg<() -> Unit>().invoke()
-        }
         every { productRepository.save(product) } returns Unit
 
         // 실행

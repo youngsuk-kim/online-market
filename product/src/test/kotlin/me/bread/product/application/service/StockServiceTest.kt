@@ -21,7 +21,7 @@ class StockServiceTest : StringSpec({
     val customTransactionManager = mockk<CustomTransactionManager>()
 
     // 테스트할 서비스 생성
-    val stockService = StockService(lockManager, productService)
+    val stockService = StockService(lockManager, productService, customTransactionManager)
 
     // 테스트 데이터
     val productId = 1L
@@ -74,8 +74,8 @@ class StockServiceTest : StringSpec({
         }.exceptionOrNull()
 
         exception.shouldBeTypeOf<RestException>()
-        (exception as RestException).errorType shouldBe ErrorType.INVALID_ARG_ERROR
-        exception.message shouldBe "유효하지 않은 인자 오류가 발생했습니다"
+        exception.errorType shouldBe ErrorType.INVALID_ARG_ERROR
+        exception.message shouldBe "Invalid arguments error has occurred"
     }
 
     // 락을 획득할 수 없는 경우가 주어진 경우
@@ -96,7 +96,7 @@ class StockServiceTest : StringSpec({
         }.exceptionOrNull()
 
         exception.shouldBeTypeOf<RestException>()
-        (exception as RestException).errorType shouldBe ErrorType.INVALID_ARG_ERROR
-        exception.message shouldBe "유효하지 않은 인자 오류가 발생했습니다"
+        exception.errorType shouldBe ErrorType.INVALID_ARG_ERROR
+        exception.message shouldBe "Invalid arguments error has occurred"
     }
 })

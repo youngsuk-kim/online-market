@@ -9,30 +9,32 @@ import org.springframework.transaction.annotation.Transactional
 class StockService(
     private val lockManager: LockManager,
     private val productService: ProductService,
+    private val customTransactionManager: CustomTransactionManager
 ) {
 
-    @Transactional
     fun decrease(productId: Long, itemId: Long) {
-        val lock = lockManager.getLock()
+        customTransactionManager.executeInTransaction {
+            val lock = lockManager.getLock()
 
-        if (lock.tryLock()) {
-            // 락 획득
-            try {
-                val product = (
-                    productService.findById(productId)?.decreaseStock(itemId)
-                        ?: throw RestException(
-                            ErrorType.INVALID_ARG_ERROR,
-                            "product item not found",
+            if (lock.tryLock()) {
+                // 락 획득
+                try {
+                    val product = (
+                        productService.findById(productId)?.decreaseStock(itemId)
+                            ?: throw RestException(
+                                ErrorType.INVALID_ARG_ERROR,
+                                "product item not found",
+                            )
                         )
-                    )
 
-                productService.save(product)
-            } finally {
-                lock.unlock()
+                    productService.save(product)
+                } finally {
+                    lock.unlock()
+                }
+            } else {
+                // 락 획득 실패
+                throw RestException(ErrorType.INVALID_ARG_ERROR, "not enough stock to decrease")
             }
-        } else {
-            // 락 획득 실패
-            throw RestException(ErrorType.INVALID_ARG_ERROR, "not enough stock to decrease")
         }
     }
 }
