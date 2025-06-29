@@ -6,7 +6,6 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import me.bread.product.application.service.ProductService
-import me.bread.product.domain.entity.Product
 import me.bread.product.infrastructure.jpa.builder.ProductBuilder
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
@@ -21,7 +20,7 @@ class DisplayProductUseCaseTest : StringSpec({
     val displayProductUseCase = DisplayProductUseCase(productService)
 
     // 테스트 데이터
-    val productId = 1L
+    val productId = "TEST ITEM ID"
     val product = ProductBuilder.aProduct()
         .id(productId)
         .name("테스트 상품")
@@ -29,9 +28,9 @@ class DisplayProductUseCaseTest : StringSpec({
         .build()
 
     val productList = listOf(
-        ProductBuilder.aProduct().id(1L).name("상품1").build(),
-        ProductBuilder.aProduct().id(2L).name("상품2").build(),
-        ProductBuilder.aProduct().id(3L).name("상품3").build()
+        ProductBuilder.aProduct().id("TEST ITEM ID 1").name("상품1").build(),
+        ProductBuilder.aProduct().id("TEST ITEM ID 2").name("상품2").build(),
+        ProductBuilder.aProduct().id("TEST ITEM ID 3").name("상품3").build()
     )
 
     "ID로 상품이 조회 되어야 한다" {

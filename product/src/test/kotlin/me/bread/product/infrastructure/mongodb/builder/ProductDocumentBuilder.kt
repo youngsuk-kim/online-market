@@ -42,13 +42,13 @@ class ProductDocumentBuilder {
  */
 class ProductItemDocumentBuilder {
     private var id: String = "1"
-    private var optionKey: String = ProductOption.COLOR.name
+    private var optionKey: ProductOption = ProductOption.COLOR
     private var optionValue: String = "빨간색"
     private var stock: Int = 10
 
     fun id(id: String) = apply { this.id = id }
     fun id(id: Long) = apply { this.id = id.toString() }
-    fun optionKey(optionKey: ProductOption) = apply { this.optionKey = optionKey.name }
+    fun optionKey(optionKey: ProductOption) = apply { this.optionKey = optionKey }
     fun optionValue(optionValue: String) = apply { this.optionValue = optionValue }
     fun stock(stock: Int) = apply { this.stock = stock }
 

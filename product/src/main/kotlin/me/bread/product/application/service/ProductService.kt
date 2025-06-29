@@ -4,6 +4,7 @@ import me.bread.product.domain.entity.Product
 import me.bread.product.domain.repository.ProductRepository
 import me.bread.product.infrastructure.mongodb.document.ProductDocument
 import me.bread.product.infrastructure.mongodb.repository.ProductMongoRepository
+import me.bread.product.mapper.ProductMapper
 import me.bread.product.presentation.support.error.ErrorType
 import me.bread.product.presentation.support.error.RestException
 import org.springframework.data.domain.Page
@@ -19,7 +20,6 @@ import java.math.BigDecimal
 @Component
 class ProductService(
     private val productRepository: ProductRepository,
-    private val productMongoRepository: ProductMongoRepository,
 ) {
 
     /**
@@ -29,7 +29,7 @@ class ProductService(
      * @return 조회된 상품 또는 null
      */
     @Transactional
-    fun findById(id: Long) =
+    fun findById(id: String) =
         productRepository.findById(id) ?: throw RestException(
             ErrorType.INVALID_ARG_ERROR,
             "product item not found",
@@ -59,14 +59,14 @@ class ProductService(
         name: String? = null,
         minPrice: BigDecimal? = null,
         maxPrice: BigDecimal? = null,
-        pageable: Pageable
+        pageable: Pageable,
     ): Page<Product> {
-        return productMongoRepository.findBySearchConditions(
+        return productRepository.findBySearchConditions(
             name = name,
             minPrice = minPrice?.toDouble(),
             maxPrice = maxPrice?.toDouble(),
-            pageable = pageable
-        ).map { it.toDomain() }
+            pageable = pageable,
+        ).map { ProductMapper.toDomain(it) }
     }
 
     /**
@@ -78,6 +78,7 @@ class ProductService(
      */
     @Transactional(readOnly = true)
     fun findByName(name: String): List<Product> {
-        return productMongoRepository.findByNameContainingIgnoreCase(name).map { it.toDomain() }
+        return productRepository.findByNameContainingIgnoreCase(name)
+            .map { ProductMapper.toDomain(it) }
     }
 }

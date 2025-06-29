@@ -1,19 +1,15 @@
 package me.bread.product.presentation.rest
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.core.spec.style.StringSpec
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import me.bread.product.application.usecase.DisplayProductUseCase
 import me.bread.product.application.usecase.StockManageUseCase
-import me.bread.product.domain.entity.Product
 import me.bread.product.infrastructure.jpa.builder.ProductBuilder
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
-import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
@@ -33,8 +29,8 @@ class ProductControllerTest : StringSpec({
     val mockMvc = MockMvcBuilders.standaloneSetup(productController).build()
 
     // 테스트 데이터
-    val productId = 1L
-    val itemId = 2L
+    val productId = "1"
+    val itemId = "2"
     val product = ProductBuilder.aProduct()
         .id(productId)
         .name("테스트 상품")
@@ -42,20 +38,20 @@ class ProductControllerTest : StringSpec({
         .build()
 
     val productList = listOf(
-        ProductBuilder.aProduct().id(1L).name("상품1").build(),
-        ProductBuilder.aProduct().id(2L).name("상품2").build(),
-        ProductBuilder.aProduct().id(3L).name("상품3").build()
+        ProductBuilder.aProduct().id("1").name("상품1").build(),
+        ProductBuilder.aProduct().id("2").name("상품2").build(),
+        ProductBuilder.aProduct().id("3").name("상품3").build()
     )
 
     "decrease 엔드포인트는 상품 아이템의 재고를 감소시켜야 한다" {
         // Given
-        every { stockManageUseCase.execute(productId, itemId) } returns Unit
+        every { stockManageUseCase.execute(productId.toLong(), itemId.toLong()) } returns Unit
 
         // When & Then
         mockMvc.perform(post("/products/{productId}/items/{itemId}", productId, itemId))
             .andExpect(status().isOk)
 
-        verify { stockManageUseCase.execute(productId, itemId) }
+        verify { stockManageUseCase.execute(productId.toLong(), itemId.toLong()) }
     }
 
     "getProduct 엔드포인트는 ID로 상품을 조회해야 한다" {

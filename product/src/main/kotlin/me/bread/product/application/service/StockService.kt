@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 @Component
 class StockService(
     private val lockManager: LockManager,
-    private val productService: ProductService,
+    private val inventoryService: InventoryService,
     private val customTransactionManager: CustomTransactionManager,
 ) {
 
@@ -20,21 +20,26 @@ class StockService(
      * 지정된 상품의 특정 아이템 재고를 1개 감소시킨다.
      * 동시성 문제를 방지하기 위해 락을 사용하고 트랜잭션 내에서 실행된다.
      *
-     * @param productId 재고를 감소시킬 상품의 ID
+     * @param productId 재고를 감소시킬 상품의 ID (현재는 사용하지 않음)
      * @param itemId 재고를 감소시킬 상품 아이템의 ID
      */
     fun decrease(productId: Long, itemId: Long) {
         customTransactionManager.executeInTransaction {
             lockManager.run {
                 getLock().use {
-                    decreaseStock(productId, itemId)
+                    decreaseStock(itemId)
                 }
             }
         }
     }
 
-    fun decreaseStock(productId: Long, itemId: Long) {
-        val product = (productService.findById(productId).decreaseStock(itemId))
-        productService.save(product)
+    /**
+     * 재고 감소 처리
+     * 지정된 상품 아이템의 재고를 1개 감소시킨다.
+     *
+     * @param itemId 재고를 감소시킬 상품 아이템의 ID
+     */
+    fun decreaseStock(itemId: Long) {
+        inventoryService.decrease(itemId)
     }
 }

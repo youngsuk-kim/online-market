@@ -28,7 +28,7 @@ class ProductController(
      * 상품 조회
      */
     @GetMapping("/{id}")
-    fun getProduct(@PathVariable id: Long): Product {
+    fun getProduct(@PathVariable id: String): Product {
         return displayProductUseCase.execute(id)
     }
 

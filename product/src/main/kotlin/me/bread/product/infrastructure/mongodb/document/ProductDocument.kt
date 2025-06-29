@@ -1,7 +1,8 @@
 package me.bread.product.infrastructure.mongodb.document
 
-import me.bread.product.domain.entity.Product
-import me.bread.product.domain.entity.ProductItem
+import me.bread.product.domain.enums.ProductOption
+import me.bread.product.domain.mongodb.ProductMongoDomain
+import me.bread.product.domain.mongodb.ProductItemMongoDomain
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.math.BigDecimal
@@ -19,26 +20,23 @@ data class ProductDocument(
     val items: List<ProductItemDocument> = emptyList()
 ) {
     companion object {
-        fun fromDomain(product: Product): ProductDocument {
+        fun fromMongoDomain(mongoDomain: ProductMongoDomain): ProductDocument {
             return ProductDocument(
-                id = product.id.toString(),
-                name = product.name,
-                price = product.price,
-                items = product.productItems.map { ProductItemDocument.fromDomain(it) }
+                id = mongoDomain.id,
+                name = mongoDomain.name,
+                price = mongoDomain.price,
+                items = mongoDomain.items.map { ProductItemDocument.fromMongoDomain(it) }
             )
         }
     }
 
-    fun toDomain(): Product {
-        val product = Product(
-            id = id.toLongOrNull() ?: 0,
+    fun toMongoDomain(): ProductMongoDomain {
+        return ProductMongoDomain(
+            id = id,
             name = name,
-            price = price
+            price = price,
+            items = items.map { it.toMongoDomain() }
         )
-
-        product.productItems.addAll(items.map { it.toDomain() })
-
-        return product
     }
 }
 
@@ -48,25 +46,25 @@ data class ProductDocument(
  */
 data class ProductItemDocument(
     val id: String,
-    val optionKey: String,
+    val optionKey: ProductOption,
     val optionValue: String,
     val stock: Int
 ) {
     companion object {
-        fun fromDomain(productItem: ProductItem): ProductItemDocument {
+        fun fromMongoDomain(mongoDomain: ProductItemMongoDomain): ProductItemDocument {
             return ProductItemDocument(
-                id = productItem.id.toString(),
-                optionKey = productItem.optionKey.name,
-                optionValue = productItem.optionValue,
-                stock = productItem.stock
+                id = mongoDomain.id,
+                optionKey = mongoDomain.optionKey,
+                optionValue = mongoDomain.optionValue,
+                stock = mongoDomain.stock
             )
         }
     }
 
-    fun toDomain(): ProductItem {
-        return ProductItem(
-            id = id.toLongOrNull() ?: 0,
-            optionKey = me.bread.product.domain.enums.ProductOption.valueOf(optionKey),
+    fun toMongoDomain(): ProductItemMongoDomain {
+        return ProductItemMongoDomain(
+            id = id,
+            optionKey = optionKey,
             optionValue = optionValue,
             stock = stock
         )

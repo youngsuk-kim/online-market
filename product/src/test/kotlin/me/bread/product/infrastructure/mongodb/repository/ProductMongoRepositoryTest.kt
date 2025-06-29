@@ -4,8 +4,7 @@ import me.bread.product.annotation.MongoTest
 import me.bread.product.domain.enums.ProductOption
 import me.bread.product.infrastructure.mongodb.builder.ProductDocumentBuilder
 import me.bread.product.infrastructure.mongodb.builder.ProductItemDocumentBuilder
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -141,5 +140,78 @@ class ProductMongoRepositoryTest {
 
         assertEquals(1, resultByNameAndPrice.size)
         assertEquals("노트북", resultByNameAndPrice[0].name)
+    }
+
+    @Test
+    fun `상품을 저장하면 ID가 유지되어야 한다`() {
+        // Given
+        val productDocument = ProductDocumentBuilder.aProduct()
+            .id("4")
+            .name("테스트 상품")
+            .price("10000.00")
+            .build()
+
+        // When
+        productMongoRepository.save(productDocument)
+
+        // Then
+        val savedProduct = productMongoRepository.findById("4").orElse(null)
+        assertNotNull(savedProduct)
+        assertEquals("4", savedProduct.id)
+    }
+
+    @Test
+    fun `상품 정보를 업데이트할 수 있어야 한다`() {
+        // Given
+        val productDocument = ProductDocumentBuilder.aProduct()
+            .id("4")
+            .name("테스트 상품")
+            .price("10000.00")
+            .build()
+        productMongoRepository.save(productDocument)
+
+        // When
+        val updatedProduct = ProductDocumentBuilder.aProduct()
+            .id("4")
+            .name("업데이트된 상품")
+            .price("20000.00")
+            .build()
+        productMongoRepository.save(updatedProduct)
+
+        // Then
+        val foundProduct = productMongoRepository.findById("4").orElse(null)
+        assertNotNull(foundProduct)
+        assertEquals("업데이트된 상품", foundProduct.name)
+        assertEquals(BigDecimal("20000.00"), foundProduct.price)
+    }
+
+    @Test
+    fun `상품을 삭제할 수 있어야 한다`() {
+        // Given
+        val productDocument = ProductDocumentBuilder.aProduct()
+            .id("4")
+            .name("테스트 상품")
+            .price("10000.00")
+            .build()
+        productMongoRepository.save(productDocument)
+
+        // When
+        productMongoRepository.deleteById("4")
+
+        // Then
+        val foundProduct = productMongoRepository.findById("4").orElse(null)
+        assertNull(foundProduct)
+    }
+
+    @Test
+    fun `존재하지 않는 ID로 상품을 조회하면 null을 반환해야 한다`() {
+        // Given
+        // No setup needed
+
+        // When
+        val foundProduct = productMongoRepository.findById("9999").orElse(null)
+
+        // Then
+        assertNull(foundProduct)
     }
 }

@@ -3,19 +3,19 @@ package me.bread.product.domain.entity
 import java.math.BigDecimal
 
 class Product(
-    val id: Long = 0,
+    val id: String,
     var name: String,
     var price: BigDecimal,
-    val productItems: MutableSet<ProductItem> = mutableSetOf(),
+    val items: MutableSet<ProductItem> = mutableSetOf(),
 ) {
-    fun decreaseStock(itemId: Long): Product {
-        this.productItems.find { productItem -> productItem.id == itemId }
+    fun decreaseStock(itemId: String): Product {
+        this.items.find { productItem -> productItem.id == itemId }
             ?.decrease()
         return this
     }
 
-    fun stock(itemId: Long): Int? {
-        return this.productItems.find { productItem -> productItem.id == itemId }?.stock
+    fun stock(itemId: String): Int? {
+        return this.items.find { productItem -> productItem.id == itemId }?.stock
     }
 
     override fun equals(other: Any?): Boolean {

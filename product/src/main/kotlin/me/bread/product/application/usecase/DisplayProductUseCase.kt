@@ -22,7 +22,7 @@ class DisplayProductUseCase(
      * @param id 조회할 상품의 ID
      * @return 조회된 상품
      */
-    fun execute(id: Long): Product {
+    fun execute(id: String): Product {
         return productService.findById(id)
     }
 

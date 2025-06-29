@@ -8,7 +8,7 @@ import me.bread.product.domain.enums.ProductOption
  * 하나의 상품은 여러 상품 아이템을 가질 수 있다
  */
 class ProductItem(
-    val id: Long = 0,
+    val id: String,
     val optionKey: ProductOption,
     val optionValue: String,
     var stock: Int,

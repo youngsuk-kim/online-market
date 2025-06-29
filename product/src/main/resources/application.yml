@@ -8,7 +8,7 @@ spring:
                 format_sql: true # 쿼리 포맷 설정
     data:
         mongodb:
-            host: localhost
+            uri: mongodb://root:secret1!@localhost:27017/test?authSource=admin
             port: 27017
-            database: product
             auto-index-creation: true
+
