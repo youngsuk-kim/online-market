@@ -34,7 +34,7 @@ class ProductRepositoryAdapterTest {
 
     @Test
     fun `상품을 저장하면 ID가 생성되어야 한다`() {
-        // 테스트 데이터 준비
+        // Given
         val productName = "테스트 상품"
         val productPrice = BigDecimal("10000.00")
 
@@ -43,10 +43,10 @@ class ProductRepositoryAdapterTest {
             price = productPrice
         )
 
-        // 실행
+        // When
         productRepositoryAdapter.save(product)
 
-        // 검증 - 저장된 엔티티를 조회하여 ID 확인
+        // Then
         val savedEntity = productJpaRepository.findAll()
             .firstOrNull { it.name == productName && it.price == productPrice }
 
@@ -56,7 +56,7 @@ class ProductRepositoryAdapterTest {
 
     @Test
     fun `상품과 상품 아이템을 함께 저장하면 모두 저장되어야 한다`() {
-        // 테스트 데이터 준비
+        // Given
         val productName = "테스트 상품"
         val productPrice = BigDecimal("10000.00")
         val optionValue = "빨간색"
@@ -73,17 +73,14 @@ class ProductRepositoryAdapterTest {
             productItems = mutableListOf(productItem)
         )
 
-        // 실행
+        // When
         productRepositoryAdapter.save(product)
-
-        // 검증 - 저장된 엔티티를 조회
         val savedEntity = productJpaRepository.findAll()
             .firstOrNull { it.name == productName && it.price == productPrice }
-
-        assertNotNull(savedEntity)
-
-        // 저장된 엔티티의 ID로 상품 조회
         val savedProduct = productRepositoryAdapter.findById(savedEntity!!.id)
+
+        // Then
+        assertNotNull(savedEntity)
         assertNotNull(savedProduct)
         assertEquals(productName, savedProduct!!.name)
         assertEquals(productPrice, savedProduct.price)
@@ -97,7 +94,7 @@ class ProductRepositoryAdapterTest {
 
     @Test
     fun `ID로 상품을 조회하면 상품과 상품 아이템이 함께 조회되어야 한다`() {
-        // 테스트 데이터 준비
+        // Given
         val productName = "테스트 상품"
         val productPrice = BigDecimal("10000.00")
 
@@ -119,19 +116,16 @@ class ProductRepositoryAdapterTest {
             productItems = mutableListOf(productItem1, productItem2)
         )
 
-        // 저장
+        // 저장 및 저장된 엔티티 확인
         productRepositoryAdapter.save(product)
-
-        // 저장된 엔티티를 조회
         val savedEntity = productJpaRepository.findAll()
             .firstOrNull { it.name == productName && it.price == productPrice }
-
         assertNotNull(savedEntity)
 
-        // 실행 - 저장된 엔티티의 ID로 상품 조회
+        // When
         val foundProduct = productRepositoryAdapter.findById(savedEntity!!.id)
 
-        // 검증
+        // Then
         assertNotNull(foundProduct)
         assertEquals(productName, foundProduct!!.name)
         assertEquals(productPrice, foundProduct.price)
@@ -150,10 +144,13 @@ class ProductRepositoryAdapterTest {
 
     @Test
     fun `존재하지 않는 ID로 상품을 조회하면 null을 반환해야 한다`() {
-        // 실행
+        // Given
+        // No setup needed
+
+        // When
         val foundProduct = productRepositoryAdapter.findById(9999L)
 
-        // 검증
+        // Then
         assertNull(foundProduct)
     }
 

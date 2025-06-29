@@ -29,7 +29,7 @@ class ProductItemJpaRepositoryTest {
 
     @Test
     fun `상품 아이템을 저장하고 ID로 조회할 수 있어야 한다`() {
-        // 테스트 데이터 준비
+        // Given
         val productEntity = ProductEntity(
             name = "테스트 상품",
             price = BigDecimal("10000.00")
@@ -43,17 +43,17 @@ class ProductItemJpaRepositoryTest {
             stock = 10
         )
 
-        // 실행
+        // When
         productItemJpaRepository.save(productItemEntity)
-
-        // 검증
         val foundItem = productItemJpaRepository.findById(productItemEntity.id).orElse(null)
+
+        // Then
         assertEquals(productItemEntity, foundItem)
     }
 
     @Test
     fun `상품 ID로 해당 상품의 모든 아이템을 조회할 수 있어야 한다`() {
-        // 테스트 데이터 준비
+        // Given
         val productEntity = ProductEntity(
             name = "테스트 상품",
             price = BigDecimal("10000.00")
@@ -73,13 +73,13 @@ class ProductItemJpaRepositoryTest {
             optionValue = "대형",
             stock = 5
         )
-
-        // 실행
         productItemJpaRepository.save(productItemEntity1)
         productItemJpaRepository.save(productItemEntity2)
 
-        // 검증
+        // When
         val items = productItemJpaRepository.findByProductEntityId(productEntity.id)
+
+        // Then
         assertEquals(2, items.size)
 
         // 아이템 내용 검증
@@ -95,7 +95,8 @@ class ProductItemJpaRepositoryTest {
 
     @Test
     fun `여러 상품에 대한 아이템을 저장하고 특정 상품의 아이템만 조회할 수 있어야 한다`() {
-        // 테스트 데이터 준비 - 첫 번째 상품
+        // Given
+        // 첫 번째 상품
         val productEntity1 = ProductEntity(
             name = "테스트 상품 1",
             price = BigDecimal("10000.00")
@@ -110,7 +111,7 @@ class ProductItemJpaRepositoryTest {
         )
         productItemJpaRepository.save(productItemEntity1)
 
-        // 테스트 데이터 준비 - 두 번째 상품
+        // 두 번째 상품
         val productEntity2 = ProductEntity(
             name = "테스트 상품 2",
             price = BigDecimal("20000.00")
@@ -134,15 +135,21 @@ class ProductItemJpaRepositoryTest {
         productItemJpaRepository.save(productItemEntity2)
         productItemJpaRepository.save(productItemEntity3)
 
-        // 실행 및 검증 - 첫 번째 상품의 아이템
+        // When
+        // 첫 번째 상품의 아이템 조회
         val items1 = productItemJpaRepository.findByProductEntityId(productEntity1.id)
+
+        // 두 번째 상품의 아이템 조회
+        val items2 = productItemJpaRepository.findByProductEntityId(productEntity2.id)
+
+        // Then
+        // 첫 번째 상품 검증
         assertEquals(1, items1.size)
         assertEquals(ProductOption.COLOR, items1[0].optionKey)
         assertEquals("빨간색", items1[0].optionValue)
         assertEquals(10, items1[0].stock)
 
-        // 실행 및 검증 - 두 번째 상품의 아이템
-        val items2 = productItemJpaRepository.findByProductEntityId(productEntity2.id)
+        // 두 번째 상품 검증
         assertEquals(2, items2.size)
 
         // 두 번째 상품의 아이템 내용 검증

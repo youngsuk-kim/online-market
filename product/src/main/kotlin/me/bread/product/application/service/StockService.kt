@@ -1,39 +1,33 @@
 package me.bread.product.application.service
 
-import me.bread.product.presentation.support.error.ErrorType
-import me.bread.product.presentation.support.error.RestException
 import org.springframework.stereotype.Component
-import org.springframework.transaction.annotation.Transactional
 
+/**
+ * 재고 관리 서비스
+ * 상품의 재고를 관리하는 서비스 클래스
+ */
 @Component
 class StockService(
     private val lockManager: LockManager,
     private val productService: ProductService,
-    private val customTransactionManager: CustomTransactionManager
+    private val customTransactionManager: CustomTransactionManager,
 ) {
 
+    /**
+     * 재고 감소
+     * 지정된 상품의 특정 아이템 재고를 1개 감소시킨다.
+     * 동시성 문제를 방지하기 위해 락을 사용하고 트랜잭션 내에서 실행된다.
+     *
+     * @param productId 재고를 감소시킬 상품의 ID
+     * @param itemId 재고를 감소시킬 상품 아이템의 ID
+     */
     fun decrease(productId: Long, itemId: Long) {
         customTransactionManager.executeInTransaction {
-            val lock = lockManager.getLock()
-
-            if (lock.tryLock()) {
-                // 락 획득
-                try {
-                    val product = (
-                        productService.findById(productId)?.decreaseStock(itemId)
-                            ?: throw RestException(
-                                ErrorType.INVALID_ARG_ERROR,
-                                "product item not found",
-                            )
-                        )
-
+            lockManager.run {
+                lockManager.getLock().use {
+                    val product = (productService.findById(productId).decreaseStock(itemId))
                     productService.save(product)
-                } finally {
-                    lock.unlock()
                 }
-            } else {
-                // 락 획득 실패
-                throw RestException(ErrorType.INVALID_ARG_ERROR, "not enough stock to decrease")
             }
         }
     }

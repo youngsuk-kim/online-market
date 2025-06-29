@@ -24,32 +24,32 @@ class ProductJpaRepositoryTest {
 
     @Test
     fun `상품을 저장하면 ID가 생성되어야 한다`() {
-        // 테스트 데이터 준비
+        // Given
         val productEntity = ProductEntity(
             name = "테스트 상품",
             price = BigDecimal("10000.00")
         )
 
-        // 실행
+        // When
         productJpaRepository.save(productEntity)
 
-        // 검증
+        // Then
         assertNotEquals(0, productEntity.id)
     }
 
     @Test
     fun `저장된 상품을 ID로 조회할 수 있어야 한다`() {
-        // 테스트 데이터 준비
+        // Given
         val productEntity = ProductEntity(
             name = "테스트 상품",
             price = BigDecimal("10000.00")
         )
         productJpaRepository.save(productEntity)
 
-        // 실행
+        // When
         val foundProduct = productJpaRepository.findById(productEntity.id).orElse(null)
 
-        // 검증
+        // Then
         assertNotNull(foundProduct)
         assertEquals(productEntity.id, foundProduct.id)
         assertEquals("테스트 상품", foundProduct.name)
@@ -58,22 +58,20 @@ class ProductJpaRepositoryTest {
 
     @Test
     fun `상품 정보를 업데이트할 수 있어야 한다`() {
-        // 테스트 데이터 준비
+        // Given
         val productEntity = ProductEntity(
             name = "테스트 상품",
             price = BigDecimal("10000.00")
         )
         productJpaRepository.save(productEntity)
 
-        // 상품 정보 업데이트
+        // When
         productEntity.name = "업데이트된 상품"
         productEntity.price = BigDecimal("20000.00")
         productJpaRepository.save(productEntity)
-
-        // 실행
         val updatedProduct = productJpaRepository.findById(productEntity.id).orElse(null)
 
-        // 검증
+        // Then
         assertNotNull(updatedProduct)
         assertEquals("업데이트된 상품", updatedProduct.name)
         assertEquals(BigDecimal("20000.00"), updatedProduct.price)
@@ -81,27 +79,30 @@ class ProductJpaRepositoryTest {
 
     @Test
     fun `상품을 삭제할 수 있어야 한다`() {
-        // 테스트 데이터 준비
+        // Given
         val productEntity = ProductEntity(
             name = "테스트 상품",
             price = BigDecimal("10000.00")
         )
         productJpaRepository.save(productEntity)
 
-        // 실행
+        // When
         productJpaRepository.delete(productEntity)
 
-        // 검증
+        // Then
         val foundProduct = productJpaRepository.findById(productEntity.id).orElse(null)
         assertNull(foundProduct)
     }
 
     @Test
     fun `존재하지 않는 ID로 상품을 조회하면 null을 반환해야 한다`() {
-        // 실행
+        // Given
+        // No setup needed
+
+        // When
         val foundProduct = productJpaRepository.findById(9999L).orElse(null)
 
-        // 검증
+        // Then
         assertNull(foundProduct)
     }
 
