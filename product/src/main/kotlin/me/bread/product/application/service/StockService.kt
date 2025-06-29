@@ -23,7 +23,7 @@ class StockService(
      * @param productId 재고를 감소시킬 상품의 ID (현재는 사용하지 않음)
      * @param itemId 재고를 감소시킬 상품 아이템의 ID
      */
-    fun decrease(productId: Long, itemId: Long) {
+    fun decrease(itemId: Long) {
         customTransactionManager.executeInTransaction {
             lockManager.run {
                 getLock().use {

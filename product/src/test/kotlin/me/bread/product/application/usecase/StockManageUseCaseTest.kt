@@ -19,12 +19,12 @@ class StockManageUseCaseTest : StringSpec({
 
     "execute 메서드는 상품 아이템의 재고를 감소시켜야 한다" {
         // Given
-        every { stockService.decrease(productId, itemId) } returns Unit
+        every { stockService.decrease(itemId) } returns Unit
 
         // When
-        stockManageUseCase.execute(productId, itemId)
+        stockManageUseCase.execute(itemId)
 
         // Then
-        verify { stockService.decrease(productId, itemId) }
+        verify { stockService.decrease(itemId) }
     }
 })

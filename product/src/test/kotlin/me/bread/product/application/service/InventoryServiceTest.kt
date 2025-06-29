@@ -8,7 +8,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import me.bread.product.domain.entity.Inventory
 import me.bread.product.domain.repository.InventoryRepository
-import me.bread.product.presentation.support.error.RestException
+import me.bread.product.presentation.support.error.ProductException
 
 class InventoryServiceTest : StringSpec({
     // 목 의존성
@@ -71,7 +71,7 @@ class InventoryServiceTest : StringSpec({
         every { inventoryRepository.findByProductItemId(productItemId) } returns inventory
 
         // When & Then
-        shouldThrow<IllegalStateException> {
+        shouldThrow<ProductException> {
             inventoryService.decrease(productItemId)
         }
 

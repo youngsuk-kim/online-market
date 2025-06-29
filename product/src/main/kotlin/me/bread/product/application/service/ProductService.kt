@@ -2,11 +2,9 @@ package me.bread.product.application.service
 
 import me.bread.product.domain.entity.Product
 import me.bread.product.domain.repository.ProductRepository
-import me.bread.product.infrastructure.mongodb.document.ProductDocument
-import me.bread.product.infrastructure.mongodb.repository.ProductMongoRepository
 import me.bread.product.mapper.ProductMapper
 import me.bread.product.presentation.support.error.ErrorType
-import me.bread.product.presentation.support.error.RestException
+import me.bread.product.presentation.support.error.ProductException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Component
@@ -30,9 +28,8 @@ class ProductService(
      */
     @Transactional
     fun findById(id: String) =
-        productRepository.findById(id) ?: throw RestException(
-            ErrorType.INVALID_ARG_ERROR,
-            "product item not found",
+        productRepository.findById(id) ?: throw ProductException(
+            ErrorType.PRODUCT_NOT_FOUND,
         )
 
     /**

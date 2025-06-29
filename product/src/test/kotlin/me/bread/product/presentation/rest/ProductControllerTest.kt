@@ -45,13 +45,13 @@ class ProductControllerTest : StringSpec({
 
     "decrease 엔드포인트는 상품 아이템의 재고를 감소시켜야 한다" {
         // Given
-        every { stockManageUseCase.execute(productId.toLong(), itemId.toLong()) } returns Unit
+        every { stockManageUseCase.execute(itemId.toLong()) } returns Unit
 
         // When & Then
         mockMvc.perform(post("/products/{productId}/items/{itemId}", productId, itemId))
             .andExpect(status().isOk)
 
-        verify { stockManageUseCase.execute(productId.toLong(), itemId.toLong()) }
+        verify { stockManageUseCase.execute(itemId.toLong()) }
     }
 
     "getProduct 엔드포인트는 ID로 상품을 조회해야 한다" {

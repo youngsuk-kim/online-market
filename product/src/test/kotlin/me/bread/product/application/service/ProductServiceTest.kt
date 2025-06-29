@@ -11,7 +11,7 @@ import me.bread.product.domain.repository.ProductRepository
 import me.bread.product.infrastructure.jpa.builder.ProductBuilder
 import me.bread.product.infrastructure.mongodb.builder.ProductDocumentBuilder
 import me.bread.product.presentation.support.error.ErrorType
-import me.bread.product.presentation.support.error.RestException
+import me.bread.product.presentation.support.error.ProductException
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
@@ -48,7 +48,7 @@ class ProductServiceTest : StringSpec({
         every { productRepository.findById(productId) } returns null
 
         // When & Then
-        val exception = shouldThrow<RestException> {
+        val exception = shouldThrow<ProductException> {
             productService.findById(productId)
         }
 

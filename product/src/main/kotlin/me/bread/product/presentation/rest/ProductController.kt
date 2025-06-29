@@ -21,7 +21,7 @@ class ProductController(
      */
     @PostMapping("/{productId}/items/{itemId}")
     fun decrease(@PathVariable("productId") productId: Long, @PathVariable("itemId") itemId: Long) {
-        stockManageUseCase.execute(productId, itemId)
+        stockManageUseCase.execute(itemId)
     }
 
     /**

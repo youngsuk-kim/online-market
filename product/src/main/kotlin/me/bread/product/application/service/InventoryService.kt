@@ -3,7 +3,7 @@ package me.bread.product.application.service
 import me.bread.product.domain.entity.Inventory
 import me.bread.product.domain.repository.InventoryRepository
 import me.bread.product.presentation.support.error.ErrorType
-import me.bread.product.presentation.support.error.RestException
+import me.bread.product.presentation.support.error.ProductException
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
@@ -21,13 +21,12 @@ class InventoryService(
      *
      * @param id 조회할 재고의 ID
      * @return 조회된 재고
-     * @throws RestException 재고가 없는 경우
+     * @throws ProductException 재고가 없는 경우
      */
     @Transactional(readOnly = true)
     fun findById(id: Long): Inventory {
-        return inventoryRepository.findById(id) ?: throw RestException(
-            ErrorType.INVALID_ARG_ERROR,
-            "재고를 찾을 수 없습니다: $id"
+        return inventoryRepository.findById(id) ?: throw ProductException(
+            ErrorType.INVENTORY_NOT_FOUND,
         )
     }
 
@@ -37,13 +36,12 @@ class InventoryService(
      *
      * @param productItemId 조회할 상품 아이템의 ID
      * @return 조회된 재고
-     * @throws RestException 재고가 없는 경우
+     * @throws ProductException 재고가 없는 경우
      */
     @Transactional(readOnly = true)
     fun findByProductItemId(productItemId: Long): Inventory {
-        return inventoryRepository.findByProductItemId(productItemId) ?: throw RestException(
-            ErrorType.INVALID_ARG_ERROR,
-            "상품 아이템에 대한 재고를 찾을 수 없습니다: $productItemId"
+        return inventoryRepository.findByProductItemId(productItemId) ?: throw ProductException(
+            ErrorType.PRODUCT_ITEM_INVENTORY_NOT_FOUND,
         )
     }
 

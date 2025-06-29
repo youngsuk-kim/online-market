@@ -2,7 +2,7 @@ package me.bread.product.presentation.rest
 
 import me.bread.order.presentation.support.response.RestResponse
 import me.bread.product.presentation.support.error.ErrorType
-import me.bread.product.presentation.support.error.RestException
+import me.bread.product.presentation.support.error.ProductException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.boot.logging.LogLevel
@@ -15,20 +15,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class RestExceptionHandler {
     private val log: Logger = LoggerFactory.getLogger(javaClass)
 
-    @ExceptionHandler(RestException::class)
-    fun handleApiException(e: RestException): ResponseEntity<RestResponse<Any>> {
+    @ExceptionHandler(ProductException::class)
+    fun handleApiException(e: ProductException): ResponseEntity<RestResponse<Any>> {
         logBasedOnLevel(e.errorType.logLevel, e.message, e)
         val response = RestResponse.error<Any>(e.errorType, e.data)
         return ResponseEntity(response, e.errorType.status)
-    }
-
-    @ExceptionHandler(IllegalArgumentException::class)
-    fun handleIllegalArgumentException(
-        e: IllegalArgumentException,
-    ): ResponseEntity<RestResponse<Any>> {
-        log.error("IllegalArgumentException: {}", e.message, e)
-        val response = RestResponse.error<Any>(ErrorType.INVALID_ARG_ERROR)
-        return ResponseEntity(response, ErrorType.INVALID_ARG_ERROR.status)
     }
 
     @ExceptionHandler(Exception::class)

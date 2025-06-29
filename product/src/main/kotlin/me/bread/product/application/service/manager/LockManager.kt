@@ -1,7 +1,7 @@
 package me.bread.product.application.service.manager
 
 import me.bread.product.presentation.support.error.ErrorType
-import me.bread.product.presentation.support.error.RestException
+import me.bread.product.presentation.support.error.ProductException
 import java.util.concurrent.locks.Lock
 
 /**
@@ -27,13 +27,13 @@ interface LockManager {
      * 락 사용 유틸리티 함수
      * 락을 획득하고 작업을 수행한 후 자동으로 락을 해제한다
      * @param block 락을 획득한 상태에서 실행할 코드 블록
-     * @throws RestException 락 획득에 실패한 경우 발생
+     * @throws ProductException 락 획득에 실패한 경우 발생
      */
     fun Lock.use(block: () -> Unit) {
         try {
-            if (!this.tryLock()) throw RestException(
-                ErrorType.INVALID_ARG_ERROR,
-                "Unable to acquire lock",
+            if (!this.tryLock()) throw ProductException(
+                ErrorType.UNABLE_TO_ACQUIRE_LOCK,
+                ErrorType.UNABLE_TO_ACQUIRE_LOCK.message,
             )
 
             block()

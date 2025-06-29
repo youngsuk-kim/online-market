@@ -1,6 +1,6 @@
 package me.bread.product.presentation.support.error
 
-class RestException(
+class ProductException(
     val errorType: ErrorType,
     val data: Any? = null,
 ) : RuntimeException(errorType.message)

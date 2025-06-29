@@ -15,10 +15,9 @@ class StockManageUseCase(private val stockService: StockService) {
      * 재고 감소 실행
      * 지정된 상품의 특정 아이템 재고를 감소시킨다
      *
-     * @param productId 재고를 감소시킬 상품의 ID
      * @param itemId 재고를 감소시킬 상품 아이템의 ID
      */
-    fun execute(productId: Long, itemId: Long) {
-        stockService.decrease(productId, itemId)
+    fun execute(itemId: Long) {
+        stockService.decrease(itemId)
     }
 }
