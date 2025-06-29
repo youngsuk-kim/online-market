@@ -1,7 +1,6 @@
-package me.bread.product.application.service
+package me.bread.product.application.service.manager
 
 import me.bread.product.application.annotation.Local
-import me.bread.product.application.annotation.LocalDev
 import org.springframework.stereotype.Component
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock

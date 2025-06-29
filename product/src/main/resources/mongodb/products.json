@@ -1,0 +1,97 @@
+[
+  {
+    "id": "1",
+    "name": "스마트폰",
+    "price": 1000000,
+    "items": [
+      {
+        "id": "1",
+        "optionKey": "COLOR",
+        "optionValue": "블랙",
+        "stock": 10
+      },
+      {
+        "id": "2",
+        "optionKey": "COLOR",
+        "optionValue": "화이트",
+        "stock": 5
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "노트북",
+    "price": 2000000,
+    "items": [
+      {
+        "id": "3",
+        "optionKey": "SIZE",
+        "optionValue": "13인치",
+        "stock": 3
+      },
+      {
+        "id": "4",
+        "optionKey": "SIZE",
+        "optionValue": "15인치",
+        "stock": 7
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "태블릿",
+    "price": 800000,
+    "items": [
+      {
+        "id": "5",
+        "optionKey": "SIZE",
+        "optionValue": "10인치",
+        "stock": 8
+      },
+      {
+        "id": "6",
+        "optionKey": "COLOR",
+        "optionValue": "실버",
+        "stock": 4
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "스마트워치",
+    "price": 500000,
+    "items": [
+      {
+        "id": "7",
+        "optionKey": "COLOR",
+        "optionValue": "블랙",
+        "stock": 15
+      },
+      {
+        "id": "8",
+        "optionKey": "SIZE",
+        "optionValue": "42mm",
+        "stock": 10
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "name": "무선이어폰",
+    "price": 300000,
+    "items": [
+      {
+        "id": "9",
+        "optionKey": "COLOR",
+        "optionValue": "화이트",
+        "stock": 20
+      },
+      {
+        "id": "10",
+        "optionKey": "COLOR",
+        "optionValue": "블랙",
+        "stock": 15
+      }
+    ]
+  }
+]

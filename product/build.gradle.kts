@@ -1,7 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val koTestVersion = "5.8.1"
-
 plugins {
     id("org.springframework.boot") version "3.2.5"
     id("io.spring.dependency-management") version "1.1.4"
@@ -34,9 +32,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.integration:spring-integration-redis")
 
-    // kotest
-    testImplementation("io.kotest:kotest-assertions-core:$koTestVersion")
-    testImplementation("io.kotest:kotest-runner-junit5:$koTestVersion")
+    // junit
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+
+    // kotest (kept for backward compatibility with existing tests)
+    testImplementation("io.kotest:kotest-assertions-core:5.8.1")
+    testImplementation("io.kotest:kotest-runner-junit5:5.8.1")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.3.0")
 
     // kafka
@@ -52,11 +55,20 @@ dependencies {
     runtimeOnly("com.mysql:mysql-connector-j")
     implementation ("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 
+    // mongodb
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+
+    // kapt for querydsl annotation processing
+    annotationProcessor("com.querydsl:querydsl-apt:5.0.0:jpa")
+    annotationProcessor("jakarta.annotation:jakarta.annotation-api")
+    annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+
     // testcontainers
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:kafka")
     testImplementation("org.testcontainers:mysql")
+    testImplementation("org.testcontainers:mongodb")
 
     // mockk
     testImplementation("io.mockk:mockk:1.13.8")

@@ -7,6 +7,7 @@ import io.kotest.matchers.types.shouldBeSameInstanceAs
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import me.bread.product.application.service.manager.CustomTransactionManager
 import org.springframework.orm.jpa.JpaTransactionManager
 import org.springframework.transaction.TransactionStatus
 

@@ -1,5 +1,7 @@
 package me.bread.product.application.service
 
+import me.bread.product.application.service.manager.CustomTransactionManager
+import me.bread.product.application.service.manager.LockManager
 import org.springframework.stereotype.Component
 
 /**

@@ -1,4 +1,4 @@
-package me.bread.product.application.service
+package me.bread.product.application.service.manager
 
 import me.bread.product.presentation.support.error.ErrorType
 import me.bread.product.presentation.support.error.RestException

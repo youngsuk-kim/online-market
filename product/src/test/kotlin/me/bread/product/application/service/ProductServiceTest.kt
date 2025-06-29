@@ -10,15 +10,22 @@ import io.mockk.verify
 import me.bread.product.domain.entity.Product
 import me.bread.product.domain.repository.ProductRepository
 import me.bread.product.infrastructure.jpa.builder.ProductBuilder
+import me.bread.product.infrastructure.mongodb.builder.ProductDocumentBuilder
+import me.bread.product.infrastructure.mongodb.document.ProductDocument
+import me.bread.product.infrastructure.mongodb.repository.ProductMongoRepository
 import me.bread.product.presentation.support.error.ErrorType
 import me.bread.product.presentation.support.error.RestException
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import java.math.BigDecimal
 
 class ProductServiceTest : StringSpec({
     // 의존성 목 객체
     val productRepository = mockk<ProductRepository>()
+    val productMongoRepository = mockk<ProductMongoRepository>()
 
-    val productService = ProductService(productRepository)
+    val productService = ProductService(productRepository, productMongoRepository)
 
     // 테스트 데이터
     val productId = 1L
@@ -63,5 +70,70 @@ class ProductServiceTest : StringSpec({
 
         // Then
         verify { productRepository.save(product) }
+    }
+
+
+    "검색 조건과 페이징으로 상품을 조회해야 되어야 한다" {
+        // Given
+        val name = "테스트"
+        val minPrice = BigDecimal("10.00")
+        val maxPrice = BigDecimal("100.00")
+        val pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "id"))
+
+        val productDocuments = listOf(
+            ProductDocumentBuilder.aProduct().id("1").name("테스트 상품1").build(),
+            ProductDocumentBuilder.aProduct().id("2").name("테스트 상품2").build()
+        )
+
+        val page = PageImpl(productDocuments, pageable, productDocuments.size.toLong())
+
+        every {
+            productMongoRepository.findBySearchConditions(
+                name = name,
+                minPrice = minPrice.toDouble(),
+                maxPrice = maxPrice.toDouble(),
+                pageable = pageable
+            )
+        } returns page
+
+        // When
+        val result = productService.findBySearchConditions(
+            name = name,
+            minPrice = minPrice,
+            maxPrice = maxPrice,
+            pageable = pageable
+        )
+
+        // Then
+        result.totalElements shouldBe 2L
+        result.content.size shouldBe 2
+        verify {
+            productMongoRepository.findBySearchConditions(
+                name = name,
+                minPrice = minPrice.toDouble(),
+                maxPrice = maxPrice.toDouble(),
+                pageable = pageable
+            )
+        }
+    }
+
+    "findByName 메서드는 이름으로 상품을 검색해야 한다" {
+        // Given
+        val name = "테스트"
+        val productDocuments = listOf(
+            ProductDocumentBuilder.aProduct().id("1").name("테스트 상품1").build(),
+            ProductDocumentBuilder.aProduct().id("2").name("테스트 상품2").build()
+        )
+
+        every { productMongoRepository.findByNameContainingIgnoreCase(name) } returns productDocuments
+
+        // When
+        val result = productService.findByName(name)
+
+        // Then
+        result.size shouldBe 2
+        result[0].name shouldBe "테스트 상품1"
+        result[1].name shouldBe "테스트 상품2"
+        verify { productMongoRepository.findByNameContainingIgnoreCase(name) }
     }
 })

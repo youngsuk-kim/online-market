@@ -1,6 +1,8 @@
 package me.bread.product.infrastructure.jpa.repository
 
+import me.bread.product.annotation.MySQLTest
 import me.bread.product.infrastructure.jpa.builder.ProductEntityBuilder
+import me.bread.product.infrastructure.jpa.config.MySQLTestConfig
 import me.bread.product.infrastructure.jpa.entity.ProductEntity
 import me.bread.product.infrastructure.jpa.fixture.ProductTestFixture
 import org.junit.jupiter.api.Assertions.*
@@ -8,6 +10,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
@@ -16,8 +19,7 @@ import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import java.math.BigDecimal
 
-@DataJpaTest
-@ActiveProfiles("test")
+@MySQLTest
 class ProductJpaRepositoryTest {
     @Autowired
     private lateinit var productJpaRepository: ProductJpaRepository

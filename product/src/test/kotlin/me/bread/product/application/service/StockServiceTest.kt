@@ -5,6 +5,8 @@ import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import me.bread.product.application.service.manager.CustomTransactionManager
+import me.bread.product.application.service.manager.LockManager
 import me.bread.product.domain.entity.Product
 import me.bread.product.domain.enums.ProductOption
 import me.bread.product.infrastructure.jpa.builder.ProductBuilder

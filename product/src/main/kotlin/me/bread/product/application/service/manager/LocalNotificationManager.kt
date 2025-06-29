@@ -1,4 +1,4 @@
-package me.bread.product.application.service
+package me.bread.product.application.service.manager
 
 import me.bread.product.application.annotation.Local
 import me.bread.product.application.annotation.LocalDev

@@ -1,6 +1,6 @@
 package me.bread.product.infrastructure.kafka
 
-import me.bread.product.application.service.NotificationManager
+import me.bread.product.application.service.manager.NotificationManager
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Service
 

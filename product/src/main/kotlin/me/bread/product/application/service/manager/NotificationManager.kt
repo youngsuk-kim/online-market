@@ -1,4 +1,4 @@
-package me.bread.product.application.service
+package me.bread.product.application.service.manager
 
 /**
  * 알림 관리자 인터페이스

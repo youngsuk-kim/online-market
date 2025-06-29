@@ -1,25 +1,19 @@
 package me.bread.product.infrastructure.jpa.repository
 
+import me.bread.product.annotation.MySQLTest
 import me.bread.product.domain.enums.ProductOption
 import me.bread.product.infrastructure.jpa.builder.ProductBuilder
 import me.bread.product.infrastructure.jpa.builder.ProductItemBuilder
-import me.bread.product.infrastructure.jpa.fixture.ProductTestFixture
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.DynamicPropertyRegistry
-import org.springframework.test.context.DynamicPropertySource
-import org.testcontainers.junit.jupiter.Container
 import java.math.BigDecimal
 
-@DataJpaTest
-@ActiveProfiles("test")
+@MySQLTest
 @Import(ProductRepositoryAdapter::class)
 class ProductRepositoryAdapterTest {
     @Autowired
@@ -27,9 +21,6 @@ class ProductRepositoryAdapterTest {
 
     @Autowired
     private lateinit var productJpaRepository: ProductJpaRepository
-
-    @Autowired
-    private lateinit var productItemJpaRepository: ProductItemJpaRepository
 
     @Test
     fun `상품을 저장하면 ID가 생성되어야 한다`() {

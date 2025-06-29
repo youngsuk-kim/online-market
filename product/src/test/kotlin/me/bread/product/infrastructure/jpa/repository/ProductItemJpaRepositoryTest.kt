@@ -1,5 +1,6 @@
 package me.bread.product.infrastructure.jpa.repository
 
+import me.bread.product.annotation.MySQLTest
 import me.bread.product.domain.enums.ProductOption
 import me.bread.product.infrastructure.jpa.builder.ProductEntityBuilder
 import me.bread.product.infrastructure.jpa.builder.ProductItemEntityBuilder
@@ -10,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.ActiveProfiles
 
-@DataJpaTest
-@ActiveProfiles("test")
+@MySQLTest
 class ProductItemJpaRepositoryTest {
     @Autowired
     private lateinit var productItemJpaRepository: ProductItemJpaRepository

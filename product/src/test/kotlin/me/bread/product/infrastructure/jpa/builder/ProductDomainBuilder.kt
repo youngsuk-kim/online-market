@@ -15,7 +15,6 @@ class ProductBuilder {
     fun name(name: String) = apply { this.name = name }
     fun price(price: BigDecimal) = apply { this.price = price }
     fun price(price: String) = apply { this.price = BigDecimal(price) }
-    fun productItems(productItems: MutableSet<ProductItem>) = apply { this.productItems = productItems }
     fun addProductItem(productItem: ProductItem) = apply { this.productItems.add(productItem) }
 
     fun build(): Product {

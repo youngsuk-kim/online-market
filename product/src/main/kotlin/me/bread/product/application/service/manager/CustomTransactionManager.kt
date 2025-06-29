@@ -1,4 +1,4 @@
-package me.bread.product.application.service
+package me.bread.product.application.service.manager
 
 import org.springframework.orm.jpa.JpaTransactionManager
 import org.springframework.stereotype.Component

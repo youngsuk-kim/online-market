@@ -6,3 +6,9 @@ spring:
         properties:
             hibernate:
                 format_sql: true # 쿼리 포맷 설정
+    data:
+        mongodb:
+            host: localhost
+            port: 27017
+            database: product
+            auto-index-creation: true
