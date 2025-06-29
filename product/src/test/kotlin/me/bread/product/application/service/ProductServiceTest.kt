@@ -9,6 +9,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import me.bread.product.domain.entity.Product
 import me.bread.product.domain.repository.ProductRepository
+import me.bread.product.infrastructure.jpa.builder.ProductBuilder
 import me.bread.product.presentation.support.error.ErrorType
 import me.bread.product.presentation.support.error.RestException
 import java.math.BigDecimal
@@ -21,7 +22,11 @@ class ProductServiceTest : StringSpec({
 
     // 테스트 데이터
     val productId = 1L
-    val product = Product(id = productId, name = "테스트 상품", price = BigDecimal("100.00"))
+    val product = ProductBuilder.aProduct()
+        .id(productId)
+        .name("테스트 상품")
+        .price("100.00")
+        .build()
 
     "상품이 저장소에 존재하는 경우, ID로 상품을 찾을 때 상품을 반환해야 한다" {
         // Given

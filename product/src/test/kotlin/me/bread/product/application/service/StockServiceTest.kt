@@ -6,14 +6,13 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import me.bread.product.domain.entity.Product
-import me.bread.product.domain.entity.ProductItem
 import me.bread.product.domain.enums.ProductOption
-import java.math.BigDecimal
-import java.util.concurrent.locks.Lock
+import me.bread.product.infrastructure.jpa.builder.ProductBuilder
+import me.bread.product.infrastructure.jpa.builder.ProductItemBuilder
 
 class StockServiceTest : StringSpec({
     // 목 의존성
-    val lockManager = mockk<LockManager>()
+    val lockManager = mockk<LockManager>(relaxed = true)
     val productService = mockk<ProductService>()
     val customTransactionManager = mockk<CustomTransactionManager>()
 
@@ -27,24 +26,26 @@ class StockServiceTest : StringSpec({
     // 재고가 있는 상품이 주어진 경우
     "상품에 재고가 있는 경우, 재고를 감소시키면 재고가 감소되어야 한다" {
         // Given
-        val productItem = ProductItem(id = itemId, optionKey = ProductOption.COLOR, optionValue = "빨강", stock = 10)
-        val product = Product(id = productId, name = "테스트 상품", price = BigDecimal("100.00"), productItems = mutableListOf(productItem))
+        val productItem = ProductItemBuilder.anItem()
+            .id(itemId)
+            .optionKey(ProductOption.COLOR)
+            .optionValue("빨강")
+            .stock(10)
+            .build()
 
-        // 이 테스트를 위한 새 락 생성
-        val lock = mockk<Lock>()
+        val product = ProductBuilder.aProduct()
+            .id(productId)
+            .name("테스트 상품")
+            .price("100.00")
+            .addProductItem(productItem)
+            .build()
 
         // 목 동작 설정
-        every { lockManager.getLock() } returns lock
-        every { lock.tryLock() } returns true
-        every { lock.unlock() } returns Unit
         every { productService.findById(productId) } returns product
         every { productService.save(any<Product>()) } returns Unit
-        every { customTransactionManager.executeInTransaction<Unit>(any()) } answers {
-            firstArg<() -> Unit>().invoke()
-        }
 
         // When
-        stockService.decrease(productId, itemId)
+        stockService.decreaseStock(productId, itemId)
 
         // Then
         productItem.stock shouldBe 9

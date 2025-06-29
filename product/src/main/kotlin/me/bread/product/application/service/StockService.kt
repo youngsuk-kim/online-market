@@ -24,11 +24,15 @@ class StockService(
     fun decrease(productId: Long, itemId: Long) {
         customTransactionManager.executeInTransaction {
             lockManager.run {
-                lockManager.getLock().use {
-                    val product = (productService.findById(productId).decreaseStock(itemId))
-                    productService.save(product)
+                getLock().use {
+                    decreaseStock(productId, itemId)
                 }
             }
         }
+    }
+
+    fun decreaseStock(productId: Long, itemId: Long) {
+        val product = (productService.findById(productId).decreaseStock(itemId))
+        productService.save(product)
     }
 }

@@ -1,24 +1,16 @@
 package me.bread.product.infrastructure.jpa.repository
 
 import me.bread.product.domain.enums.ProductOption
-import me.bread.product.infrastructure.jpa.entity.ProductEntity
-import me.bread.product.infrastructure.jpa.entity.ProductItemEntity
-import org.junit.jupiter.api.Assertions.*
+import me.bread.product.infrastructure.jpa.builder.ProductEntityBuilder
+import me.bread.product.infrastructure.jpa.builder.ProductItemEntityBuilder
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.DynamicPropertyRegistry
-import org.springframework.test.context.DynamicPropertySource
-import org.testcontainers.containers.MySQLContainer
-import org.testcontainers.junit.jupiter.Container
-import org.testcontainers.junit.jupiter.Testcontainers
-import java.math.BigDecimal
 
-@Testcontainers
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
 class ProductItemJpaRepositoryTest {
     @Autowired
@@ -30,18 +22,12 @@ class ProductItemJpaRepositoryTest {
     @Test
     fun `상품 아이템을 저장하고 ID로 조회할 수 있어야 한다`() {
         // Given
-        val productEntity = ProductEntity(
-            name = "테스트 상품",
-            price = BigDecimal("10000.00")
-        )
+        val productEntity = ProductEntityBuilder.aProduct().build()
         productJpaRepository.save(productEntity)
 
-        val productItemEntity = ProductItemEntity(
-            productEntity = productEntity,
-            optionKey = ProductOption.COLOR,
-            optionValue = "빨간색",
-            stock = 10
-        )
+        val productItemEntity = ProductItemEntityBuilder.anItem()
+            .productEntity(productEntity)
+            .build()
 
         // When
         productItemJpaRepository.save(productItemEntity)
@@ -54,25 +40,25 @@ class ProductItemJpaRepositoryTest {
     @Test
     fun `상품 ID로 해당 상품의 모든 아이템을 조회할 수 있어야 한다`() {
         // Given
-        val productEntity = ProductEntity(
-            name = "테스트 상품",
-            price = BigDecimal("10000.00")
-        )
+        val productEntity = ProductEntityBuilder.aProduct()
+            .name("테스트 상품")
+            .price("10000.00")
+            .build()
         productJpaRepository.save(productEntity)
 
-        val productItemEntity1 = ProductItemEntity(
-            productEntity = productEntity,
-            optionKey = ProductOption.COLOR,
-            optionValue = "빨간색",
-            stock = 10
-        )
+        val productItemEntity1 = ProductItemEntityBuilder.anItem()
+            .productEntity(productEntity)
+            .optionKey(ProductOption.COLOR)
+            .optionValue("빨간색")
+            .stock(10)
+            .build()
 
-        val productItemEntity2 = ProductItemEntity(
-            productEntity = productEntity,
-            optionKey = ProductOption.SIZE,
-            optionValue = "대형",
-            stock = 5
-        )
+        val productItemEntity2 = ProductItemEntityBuilder.anItem()
+            .productEntity(productEntity)
+            .optionKey(ProductOption.SIZE)
+            .optionValue("대형")
+            .stock(5)
+            .build()
         productItemJpaRepository.save(productItemEntity1)
         productItemJpaRepository.save(productItemEntity2)
 
@@ -97,40 +83,40 @@ class ProductItemJpaRepositoryTest {
     fun `여러 상품에 대한 아이템을 저장하고 특정 상품의 아이템만 조회할 수 있어야 한다`() {
         // Given
         // 첫 번째 상품
-        val productEntity1 = ProductEntity(
-            name = "테스트 상품 1",
-            price = BigDecimal("10000.00")
-        )
+        val productEntity1 = ProductEntityBuilder.aProduct()
+            .name("테스트 상품 1")
+            .price("10000.00")
+            .build()
         productJpaRepository.save(productEntity1)
 
-        val productItemEntity1 = ProductItemEntity(
-            productEntity = productEntity1,
-            optionKey = ProductOption.COLOR,
-            optionValue = "빨간색",
-            stock = 10
-        )
+        val productItemEntity1 = ProductItemEntityBuilder.anItem()
+            .productEntity(productEntity1)
+            .optionKey(ProductOption.COLOR)
+            .optionValue("빨간색")
+            .stock(10)
+            .build()
         productItemJpaRepository.save(productItemEntity1)
 
         // 두 번째 상품
-        val productEntity2 = ProductEntity(
-            name = "테스트 상품 2",
-            price = BigDecimal("20000.00")
-        )
+        val productEntity2 = ProductEntityBuilder.aProduct()
+            .name("테스트 상품 2")
+            .price("20000.00")
+            .build()
         productJpaRepository.save(productEntity2)
 
-        val productItemEntity2 = ProductItemEntity(
-            productEntity = productEntity2,
-            optionKey = ProductOption.COLOR,
-            optionValue = "파란색",
-            stock = 20
-        )
+        val productItemEntity2 = ProductItemEntityBuilder.anItem()
+            .productEntity(productEntity2)
+            .optionKey(ProductOption.COLOR)
+            .optionValue("파란색")
+            .stock(20)
+            .build()
 
-        val productItemEntity3 = ProductItemEntity(
-            productEntity = productEntity2,
-            optionKey = ProductOption.SIZE,
-            optionValue = "중형",
-            stock = 15
-        )
+        val productItemEntity3 = ProductItemEntityBuilder.anItem()
+            .productEntity(productEntity2)
+            .optionKey(ProductOption.SIZE)
+            .optionValue("중형")
+            .stock(15)
+            .build()
 
         productItemJpaRepository.save(productItemEntity2)
         productItemJpaRepository.save(productItemEntity3)
@@ -169,21 +155,4 @@ class ProductItemJpaRepositoryTest {
         assertEquals(15, sizeItem.stock)
     }
 
-    companion object {
-        @Container
-        private val mysqlContainer = MySQLContainer<Nothing>("mysql:8.0").apply {
-            withDatabaseName("testdb")
-            withUsername("testuser")
-            withPassword("testpass")
-        }
-
-        @JvmStatic
-        @DynamicPropertySource
-        fun properties(registry: DynamicPropertyRegistry) {
-            registry.add("spring.datasource.url") { mysqlContainer.jdbcUrl }
-            registry.add("spring.datasource.username") { mysqlContainer.username }
-            registry.add("spring.datasource.password") { mysqlContainer.password }
-            registry.add("spring.jpa.hibernate.ddl-auto") { "create-drop" }
-        }
-    }
 }

@@ -1,2 +1,8 @@
 server:
     port: 8081
+
+spring:
+    jpa:
+        properties:
+            hibernate:
+                format_sql: true # 쿼리 포맷 설정

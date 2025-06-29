@@ -1,25 +1,24 @@
 package me.bread.product.infrastructure.jpa.repository
 
-import me.bread.product.domain.entity.Product
-import me.bread.product.domain.entity.ProductItem
 import me.bread.product.domain.enums.ProductOption
-import org.junit.jupiter.api.Assertions.*
+import me.bread.product.infrastructure.jpa.builder.ProductBuilder
+import me.bread.product.infrastructure.jpa.builder.ProductItemBuilder
+import me.bread.product.infrastructure.jpa.fixture.ProductTestFixture
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
-import org.testcontainers.containers.MySQLContainer
 import org.testcontainers.junit.jupiter.Container
-import org.testcontainers.junit.jupiter.Testcontainers
 import java.math.BigDecimal
 
-@Testcontainers
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
 @Import(ProductRepositoryAdapter::class)
 class ProductRepositoryAdapterTest {
@@ -38,10 +37,10 @@ class ProductRepositoryAdapterTest {
         val productName = "테스트 상품"
         val productPrice = BigDecimal("10000.00")
 
-        val product = Product(
-            name = productName,
-            price = productPrice
-        )
+        val product = ProductBuilder.aProduct()
+            .name(productName)
+            .price(productPrice)
+            .build()
 
         // When
         productRepositoryAdapter.save(product)
@@ -61,17 +60,17 @@ class ProductRepositoryAdapterTest {
         val productPrice = BigDecimal("10000.00")
         val optionValue = "빨간색"
 
-        val productItem = ProductItem(
-            optionKey = ProductOption.COLOR,
-            optionValue = optionValue,
-            stock = 10
-        )
+        val productItem = ProductItemBuilder.anItem()
+            .optionKey(ProductOption.COLOR)
+            .optionValue(optionValue)
+            .stock(10)
+            .build()
 
-        val product = Product(
-            name = productName,
-            price = productPrice,
-            productItems = mutableListOf(productItem)
-        )
+        val product = ProductBuilder.aProduct()
+            .name(productName)
+            .price(productPrice)
+            .addProductItem(productItem)
+            .build()
 
         // When
         productRepositoryAdapter.save(product)
@@ -98,23 +97,24 @@ class ProductRepositoryAdapterTest {
         val productName = "테스트 상품"
         val productPrice = BigDecimal("10000.00")
 
-        val productItem1 = ProductItem(
-            optionKey = ProductOption.COLOR,
-            optionValue = "빨간색",
-            stock = 10
-        )
+        val productItem1 = ProductItemBuilder.anItem()
+            .optionKey(ProductOption.COLOR)
+            .optionValue("빨간색")
+            .stock(10)
+            .build()
 
-        val productItem2 = ProductItem(
-            optionKey = ProductOption.SIZE,
-            optionValue = "대형",
-            stock = 5
-        )
+        val productItem2 = ProductItemBuilder.anItem()
+            .optionKey(ProductOption.SIZE)
+            .optionValue("대형")
+            .stock(5)
+            .build()
 
-        val product = Product(
-            name = productName,
-            price = productPrice,
-            productItems = mutableListOf(productItem1, productItem2)
-        )
+        val product = ProductBuilder.aProduct()
+            .name(productName)
+            .price(productPrice)
+            .addProductItem(productItem1)
+            .addProductItem(productItem2)
+            .build()
 
         // 저장 및 저장된 엔티티 확인
         productRepositoryAdapter.save(product)
@@ -152,23 +152,5 @@ class ProductRepositoryAdapterTest {
 
         // Then
         assertNull(foundProduct)
-    }
-
-    companion object {
-        @Container
-        private val mysqlContainer = MySQLContainer<Nothing>("mysql:8.0").apply {
-            withDatabaseName("testdb")
-            withUsername("testuser")
-            withPassword("testpass")
-        }
-
-        @JvmStatic
-        @DynamicPropertySource
-        fun properties(registry: DynamicPropertyRegistry) {
-            registry.add("spring.datasource.url") { mysqlContainer.jdbcUrl }
-            registry.add("spring.datasource.username") { mysqlContainer.username }
-            registry.add("spring.datasource.password") { mysqlContainer.password }
-            registry.add("spring.jpa.hibernate.ddl-auto") { "create-drop" }
-        }
     }
 }
