@@ -2,8 +2,8 @@ package me.bread.product.domain.entity
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import me.bread.product.infrastructure.jpa.builder.ProductBuilder
-import me.bread.product.infrastructure.jpa.builder.ProductItemBuilder
+import me.bread.product.infrastructure.mongodb.builder.ProductBuilder
+import me.bread.product.infrastructure.mongodb.builder.ProductItemBuilder
 
 class ProductTest : StringSpec({
     "decreaseStock 메서드는 지정된 아이템의 재고를 감소시켜야 한다" {

@@ -1,13 +1,15 @@
 package me.bread.product.infrastructure.mongodb.adapter
 
 import me.bread.product.annotation.MongoTest
+import me.bread.product.domain.entity.Product
+import me.bread.product.domain.entity.ProductItem
 import me.bread.product.domain.enums.ProductOption
-import me.bread.product.domain.mongodb.ProductMongoDomain
-import me.bread.product.domain.mongodb.ProductItemMongoDomain
 import me.bread.product.infrastructure.mongodb.builder.ProductDocumentBuilder
 import me.bread.product.infrastructure.mongodb.builder.ProductItemDocumentBuilder
 import me.bread.product.infrastructure.mongodb.repository.ProductMongoRepository
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -35,12 +37,12 @@ class ProductMongoAdapterIntegrationTest {
         val productName = "테스트 상품"
         val productPrice = BigDecimal("10000.00")
 
-        val product = ProductMongoDomain(
+        val product = Product(
             id = "1",
             name = productName,
             price = productPrice,
-            items = emptyList()
-        ).toEntity()
+            items = mutableSetOf()
+        )
 
         // When
         productMongoAdapter.save(product)
@@ -60,21 +62,19 @@ class ProductMongoAdapterIntegrationTest {
         val productPrice = BigDecimal("10000.00")
         val optionValue = "빨간색"
 
-        val productItemMongoDomain = ProductItemMongoDomain(
+        val productItem = ProductItem(
             id = "1",
             optionKey = ProductOption.COLOR,
             optionValue = optionValue,
             stock = 10
         )
 
-        val productMongoDomain = ProductMongoDomain(
+        val product = Product(
             id = "1",
             name = productName,
             price = productPrice,
-            items = listOf(productItemMongoDomain)
+            items = mutableSetOf(productItem)
         )
-
-        val product = productMongoDomain.toEntity()
 
         // When
         productMongoAdapter.save(product)
@@ -118,7 +118,7 @@ class ProductMongoAdapterIntegrationTest {
             .id("1")
             .name(productName)
             .price(productPrice)
-            .items(listOf(productItem1, productItem2))
+            .items(mutableSetOf(productItem1, productItem2))
             .build()
 
         // 저장 및 저장된 엔티티 확인

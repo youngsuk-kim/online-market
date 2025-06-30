@@ -4,7 +4,10 @@ import me.bread.product.annotation.MongoTest
 import me.bread.product.domain.enums.ProductOption
 import me.bread.product.infrastructure.mongodb.builder.ProductDocumentBuilder
 import me.bread.product.infrastructure.mongodb.builder.ProductItemDocumentBuilder
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,7 +31,7 @@ class ProductMongoRepositoryTest {
                 .id("1")
                 .name("스마트폰")
                 .price("1000000")
-                .items(listOf(
+                .items(mutableSetOf(
                     ProductItemDocumentBuilder.anItem()
                         .id("1")
                         .optionKey(ProductOption.COLOR)
@@ -47,7 +50,7 @@ class ProductMongoRepositoryTest {
                 .id("2")
                 .name("노트북")
                 .price("2000000")
-                .items(listOf(
+                .items(mutableSetOf(
                     ProductItemDocumentBuilder.anItem()
                         .id("3")
                         .optionKey(ProductOption.SIZE)
@@ -60,7 +63,7 @@ class ProductMongoRepositoryTest {
                 .id("3")
                 .name("태블릿")
                 .price("800000")
-                .items(listOf(
+                .items(mutableSetOf(
                     ProductItemDocumentBuilder.anItem()
                         .id("5")
                         .optionKey(ProductOption.SIZE)

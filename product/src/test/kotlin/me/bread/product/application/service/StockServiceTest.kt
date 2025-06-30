@@ -18,7 +18,6 @@ class StockServiceTest : StringSpec({
     val stockService = StockService(lockManager, inventoryService, customTransactionManager)
 
     // 테스트 데이터
-    val productId = 1L
     val itemId = 2L
 
     // 재고가 있는 상품이 주어진 경우

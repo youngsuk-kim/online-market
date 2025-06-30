@@ -13,14 +13,14 @@ class ProductDocumentBuilder {
     private var id: String = "1"
     private var name: String = "테스트 상품"
     private var price: BigDecimal = BigDecimal("10000.00")
-    private var items: List<ProductItemDocument> = emptyList()
+    private var items: MutableSet<ProductItemDocument> = mutableSetOf()
 
     fun id(id: String) = apply { this.id = id }
     fun id(id: Long) = apply { this.id = id.toString() }
     fun name(name: String) = apply { this.name = name }
     fun price(price: BigDecimal) = apply { this.price = price }
     fun price(price: String) = apply { this.price = BigDecimal(price) }
-    fun items(items: List<ProductItemDocument>) = apply { this.items = items }
+    fun items(items: MutableSet<ProductItemDocument>) = apply { this.items = items }
 
     fun build(): ProductDocument {
         return ProductDocument(

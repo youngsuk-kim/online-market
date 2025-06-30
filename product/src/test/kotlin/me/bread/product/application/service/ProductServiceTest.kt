@@ -8,7 +8,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import me.bread.product.domain.repository.ProductRepository
-import me.bread.product.infrastructure.jpa.builder.ProductBuilder
+import me.bread.product.infrastructure.mongodb.builder.ProductBuilder
 import me.bread.product.infrastructure.mongodb.builder.ProductDocumentBuilder
 import me.bread.product.presentation.support.error.ErrorType
 import me.bread.product.presentation.support.error.ProductException
@@ -77,8 +77,8 @@ class ProductServiceTest : StringSpec({
         val pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "id"))
 
         val productDocuments = listOf(
-            ProductDocumentBuilder.aProduct().id("1").name("테스트 상품1").build(),
-            ProductDocumentBuilder.aProduct().id("2").name("테스트 상품2").build()
+            ProductBuilder.aProduct().id("1").name("테스트 상품1").build(),
+            ProductBuilder.aProduct().id("2").name("테스트 상품2").build()
         )
 
         val page = PageImpl(productDocuments, pageable, productDocuments.size.toLong())

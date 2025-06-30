@@ -63,7 +63,7 @@ class ProductService(
             minPrice = minPrice?.toDouble(),
             maxPrice = maxPrice?.toDouble(),
             pageable = pageable,
-        ).map { ProductMapper.toDomain(it) }
+        )
     }
 
     /**

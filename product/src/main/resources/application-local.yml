@@ -10,7 +10,7 @@ spring:
     jpa:
         open-in-view: false
         hibernate:
-            ddl-auto: create-drop # 테스트 중 테이블 생성 후 제거
+            ddl-auto: create-drop
         show-sql: true
         properties:
             hibernate:

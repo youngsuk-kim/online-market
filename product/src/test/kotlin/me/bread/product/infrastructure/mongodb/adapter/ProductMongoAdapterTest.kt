@@ -3,7 +3,7 @@ package me.bread.product.infrastructure.mongodb.adapter
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import me.bread.product.infrastructure.jpa.builder.ProductBuilder
+import me.bread.product.infrastructure.mongodb.builder.ProductBuilder
 import me.bread.product.infrastructure.mongodb.builder.ProductDocumentBuilder
 import me.bread.product.infrastructure.mongodb.repository.ProductMongoRepository
 import org.junit.jupiter.api.Assertions.*

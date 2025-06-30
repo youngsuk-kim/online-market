@@ -49,5 +49,5 @@ interface ProductRepository {
         minPrice: Double? = null,
         maxPrice: Double? = null,
         pageable: Pageable
-    ): Page<ProductDocument>
+    ): Page<Product>
 }

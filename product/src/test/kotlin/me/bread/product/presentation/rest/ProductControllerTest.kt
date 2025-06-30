@@ -6,7 +6,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import me.bread.product.application.usecase.DisplayProductUseCase
 import me.bread.product.application.usecase.StockManageUseCase
-import me.bread.product.infrastructure.jpa.builder.ProductBuilder
+import me.bread.product.infrastructure.mongodb.builder.ProductBuilder
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort

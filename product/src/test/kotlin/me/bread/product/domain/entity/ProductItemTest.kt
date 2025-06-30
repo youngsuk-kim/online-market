@@ -2,7 +2,7 @@ package me.bread.product.domain.entity
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import me.bread.product.infrastructure.jpa.builder.ProductItemBuilder
+import me.bread.product.infrastructure.mongodb.builder.ProductItemBuilder
 
 class ProductItemTest : StringSpec({
     "decrease 메서드는 재고를 1 감소시켜야 한다" {

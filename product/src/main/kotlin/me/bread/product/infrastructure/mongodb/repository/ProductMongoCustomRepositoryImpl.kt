@@ -39,14 +39,10 @@ class ProductMongoCustomRepositoryImpl(
         // 가격 범위 검색 조건
         val priceCriteria = mutableListOf<Criteria>()
         minPrice?.let {
-            // Testcontainers에서 BigDecimal과 Double 비교 문제 해결을 위해 숫자 비교 대신 문자열 변환 후 비교
-            val minPriceValue = it.toLong()
-            priceCriteria.add(Criteria.where("price").gte(minPriceValue))
+            priceCriteria.add(Criteria.where("price").gte(it))
         }
         maxPrice?.let {
-            // Testcontainers에서 BigDecimal과 Double 비교 문제 해결을 위해 숫자 비교 대신 문자열 변환 후 비교
-            val maxPriceValue = it.toLong()
-            priceCriteria.add(Criteria.where("price").lte(maxPriceValue))
+            priceCriteria.add(Criteria.where("price").lte(it))
         }
 
         if (priceCriteria.isNotEmpty()) {

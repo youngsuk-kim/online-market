@@ -1,4 +1,4 @@
-package me.bread.product.infrastructure.jpa.builder
+package me.bread.product.infrastructure.mongodb.builder
 
 import me.bread.product.domain.entity.Product
 import me.bread.product.domain.entity.ProductItem

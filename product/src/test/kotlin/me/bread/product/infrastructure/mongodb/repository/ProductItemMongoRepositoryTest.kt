@@ -35,7 +35,7 @@ class ProductItemMongoRepositoryTest {
             .id("1")
             .name("테스트 상품")
             .price("10000.00")
-            .items(listOf(productItem))
+            .items(mutableSetOf(productItem))
             .build()
 
         // When
@@ -74,7 +74,7 @@ class ProductItemMongoRepositoryTest {
             .id("1")
             .name("테스트 상품")
             .price("10000.00")
-            .items(listOf(productItem1, productItem2))
+            .items(mutableSetOf(productItem1, productItem2))
             .build()
 
         productMongoRepository.save(product)
@@ -112,7 +112,7 @@ class ProductItemMongoRepositoryTest {
             .id("1")
             .name("테스트 상품 1")
             .price("10000.00")
-            .items(listOf(productItem1))
+            .items(mutableSetOf(productItem1))
             .build()
 
         // 두 번째 상품
@@ -134,7 +134,7 @@ class ProductItemMongoRepositoryTest {
             .id("2")
             .name("테스트 상품 2")
             .price("20000.00")
-            .items(listOf(productItem2, productItem3))
+            .items(mutableSetOf(productItem2, productItem3))
             .build()
 
         productMongoRepository.save(product1)
@@ -151,9 +151,9 @@ class ProductItemMongoRepositoryTest {
         // 첫 번째 상품 검증
         assertNotNull(foundProduct1)
         assertEquals(1, foundProduct1.items.size)
-        assertEquals(ProductOption.COLOR, foundProduct1.items[0].optionKey)
-        assertEquals("빨간색", foundProduct1.items[0].optionValue)
-        assertEquals(10, foundProduct1.items[0].stock)
+        assertEquals(ProductOption.COLOR, foundProduct1.items.first().optionKey)
+        assertEquals("빨간색", foundProduct1.items.first().optionValue)
+        assertEquals(10, foundProduct1.items.first().stock)
 
         // 두 번째 상품 검증
         assertNotNull(foundProduct2)
