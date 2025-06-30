@@ -1,0 +1,24 @@
+server:
+    port: 8081
+
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3307/stock
+        username: root
+        password: secret1!
+    jpa:
+        open-in-view: false
+        hibernate:
+            ddl-auto: none # 테스트 환경에서 테이블 생성 후 삭제
+        show-sql: true
+        properties:
+            hibernate:
+                format_sql: true
+
+    data:
+        mongodb:
+            uri: mongodb://root:secret1!@localhost:27017/product?authSource=admin
+            port: 27017
+            auto-index-creation: true
+

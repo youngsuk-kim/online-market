@@ -38,8 +38,6 @@ class ProductItemBuilder {
     private var stock: Int = 10
 
     fun id(id: String) = apply { this.id = id }
-    fun optionKey(optionKey: ProductOption) = apply { this.optionKey = optionKey }
-    fun optionValue(optionValue: String) = apply { this.optionValue = optionValue }
     fun stock(stock: Int) = apply { this.stock = stock }
 
     fun build(): ProductItem {

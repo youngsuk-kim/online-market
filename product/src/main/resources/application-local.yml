@@ -1,0 +1,24 @@
+server:
+    port: 8081
+
+spring:
+    datasource:
+        url: jdbc:h2:mem:testdb
+        driver-class-name: org.h2.Driver
+        username: sa
+        password:
+    jpa:
+        open-in-view: false
+        hibernate:
+            ddl-auto: create-drop # 테스트 중 테이블 생성 후 제거
+        show-sql: true
+        properties:
+            hibernate:
+                format_sql: true
+
+    data:
+        mongodb:
+            uri: mongodb://root:secret1!@localhost:27017/stock?authSource=admin
+            port: 27017
+            auto-index-creation: true
+

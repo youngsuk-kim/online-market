@@ -1,6 +1,7 @@
 package me.bread.product.application.service.manager
 
 import me.bread.product.application.annotation.Local
+import me.bread.product.application.annotation.LocalDev
 import org.springframework.stereotype.Component
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
@@ -11,6 +12,7 @@ import java.util.concurrent.locks.ReentrantLock
  * 로컬 개발 및 테스트 환경에서 사용된다
  */
 @Local
+@LocalDev
 @Component
 class LocalLockManager : LockManager {
     private val lock = ReentrantLock()

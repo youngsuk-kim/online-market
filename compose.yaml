@@ -2,17 +2,17 @@ version: '3.8'
 
 services:
 
-    # MySQL Product
-    mysql_product:
+    # MySQL Stock
+    mysql_stock:
         image: mysql:8.0
         environment:
             MYSQL_ROOT_HOST: '%'
             MYSQL_ROOT_PASSWORD: secret1!
-            MYSQL_DATABASE: product
+            MYSQL_DATABASE: stock
         ports:
             - "3307:3306"
         volumes:
-            - mysql_product_data:/var/lib/mysql
+            - mysql_stock_data:/var/lib/mysql
         restart: always
 
     # MySQL Order
@@ -60,13 +60,13 @@ services:
             - zookeeper
 
     # MongoDB
-    mongodb:
+    product-mongodb:
         image: mongo:6.0
         container_name: mongodb
         ports:
             - "27017:27017"
         volumes:
-            - mongodb_data:/data/db
+            - product_mongodb_data:/data/db
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: secret1!
@@ -103,8 +103,8 @@ services:
 
 # Volume
 volumes:
-    mysql_product_data:
+    mysql_stock_data:
     mysql_order_data:
     grafana-data:
-    mongodb_data:
+    product_mongodb_data:
     elasticsearch-data:

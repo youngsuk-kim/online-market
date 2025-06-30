@@ -53,7 +53,7 @@ class ProductServiceTest : StringSpec({
         }
 
         // Then
-        exception.errorType shouldBe ErrorType.INVALID_ARG_ERROR
+        exception.errorType shouldBe ErrorType.PRODUCT_NOT_FOUND
         verify { productRepository.findById(productId) }
     }
 
